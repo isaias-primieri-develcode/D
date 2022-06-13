@@ -1,24 +1,28 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {StatusBar, Text, View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 
 import {AuthProvider} from './src/contexts/auth';
 import AllRoutes from './src/routes/routes.routes';
 import {RegisterProvider} from './src/contexts/Register';
+import { ThemeProvider } from 'styled-components';
+import theme from './src/global/theme';
+import { StatusBar } from 'react-native';
 
 export default function App() {
   return (
-    <View style={{height: '100%', width: '100%'}}>
-      <StatusBar barStyle="dark-content" backgroundColor="#fff" />
-      <NavigationContainer>
-        <RegisterProvider>
-          <AuthProvider>
-            <AllRoutes />
-          </AuthProvider>
-        </RegisterProvider>
-      </NavigationContainer>
-    </View>
+    <>
+    <StatusBar barStyle={'light-content'}/>
+    <AuthProvider>
+      <RegisterProvider>
+        <ThemeProvider theme={theme}>
+          <NavigationContainer>
+                <AllRoutes />
+          </NavigationContainer>
+        </ThemeProvider>
+      </RegisterProvider>
+    </AuthProvider>
+    </>
   );
 }

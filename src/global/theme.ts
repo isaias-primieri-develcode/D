@@ -1,4 +1,3 @@
-/* eslint-disable global-require */
 export default {
   colors: {
     background: '#FFFFFF',
@@ -31,6 +30,17 @@ export default {
     prato1: require('../assets/images/prato1.png'),
     prato2: require('../assets/images/prato2.png'),
     prato3: require('../assets/images/prato3.png'),
+    emailIcon: require('../assets/imageIcons/email.png'),
+    passwordIcon: require('../assets/imageIcons/password.png'),
+    hiddenPassword: require('../assets/imageIcons/hiddenPassword.png'),
+    nameIcon: require('../assets/imageIcons/name.png'),
+    cpfIcon: require('../assets/imageIcons/cpf.png'),
+    phoneIcon: require('../assets/imageIcons/phone.png'),
+    Location: require('../assets/imageIcons/location.png'),
 
   },
-}
+
+  images: {
+    emailIcon: require('../assets/imageIcons/email.png'),
+  },
+};

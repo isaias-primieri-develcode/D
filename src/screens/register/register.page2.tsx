@@ -13,14 +13,17 @@ import BackPng from '../../assets/imageIcons/back.png';
 
 import Register2png from '../../assets/resgister/register2.png';
 
-import {Container, ValueInput, ViewInput} from './register.styles';
+import {Container, Content, ValueInput, ViewInput} from './register.styles';
 import {cpf, phoneNumber} from '../../utils/validations';
 import {AuthProvider} from '../../contexts/auth';
 import {useRegister} from '../../contexts/Register';
 import {Header} from '../../components/Headers/header.component';
+import {Input} from '../../components/Input/input.component';
+import {useTheme} from 'styled-components';
 
 export function Register2() {
   const navigation = useNavigation();
+  const theme = useTheme();
   const loginValidationSchema = Yup.object()
     .shape({
       name: Yup.string().required(),
@@ -62,95 +65,64 @@ export function Register2() {
             isValid,
           }) => (
             <>
-              <ViewInput>
-                <Image
-                  source={Name}
-                  style={{
-                    position: 'absolute',
-                    left: 0,
-                    marginHorizontal: 10,
-                  }}
-                />
-                <ValueInput
+              <Content>
+                <Input
                   placeholder="Nome"
-                  onChangeText={handleChange('name')}
-                  onBlur={handleBlur('name')}
-                  value={values.name}
-                  keyboardType="default"
+                  handleChangeProp={handleChange('name')}
+                  onBlurProp={handleBlur('name')}
+                  valueProp={values.name}
+                  keyboradTypeProp="email-address"
+                  source={theme.icons.nameIcon}
                 />
-              </ViewInput>
-              {errors.name && touched.name && (
-                <Text
-                  style={{
-                    fontSize: 10,
-                    color: 'red',
-                  }}>
-                  {errors.name}
-                </Text>
-              )}
-              <ViewInput>
-                <Image
-                  source={Name}
-                  style={{
-                    position: 'absolute',
-                    left: 0,
-                    marginHorizontal: 10,
-                  }}
+                {errors.name && touched.name && (
+                  <Text
+                    style={{
+                      fontSize: 10,
+                      color: 'red',
+                    }}>
+                    {errors.name}
+                  </Text>
+                )}
+                <Input
+                  placeholder="Sobrenome"
+                  keyboradTypeProp="email-address"
+                  source={theme.icons.nameIcon}
                 />
-                <ValueInput placeholder="Sobrenome" keyboardType="default" />
-              </ViewInput>
-              <ViewInput>
-                <Image
-                  source={CPF}
-                  style={{
-                    position: 'absolute',
-                    left: 0,
-                    marginHorizontal: 10,
-                  }}
-                />
-                <ValueInput
+                <Input
                   placeholder="CPF"
-                  onChangeText={handleChange('cpf')}
-                  onBlur={handleBlur('cpf')}
-                  value={values.cpf}
-                  keyboardType="number-pad"
+                  handleChangeProp={handleChange('cpf')}
+                  onBlurProp={handleBlur('cpf')}
+                  valueProp={values.cpf}
+                  keyboradTypeProp="email-address"
+                  source={theme.icons.cpfIcon}
                 />
-              </ViewInput>
-              {errors.cpf && touched.cpf && (
-                <Text
-                  style={{
-                    fontSize: 10,
-                    color: 'red',
-                  }}>
-                  {errors.cpf}
-                </Text>
-              )}
-              <ViewInput>
-                <Image
-                  source={Phone}
-                  style={{
-                    position: 'absolute',
-                    left: 0,
-                    marginHorizontal: 10,
-                  }}
-                />
-                <ValueInput
+                {errors.cpf && touched.cpf && (
+                  <Text
+                    style={{
+                      fontSize: 10,
+                      color: 'red',
+                    }}>
+                    {errors.cpf}
+                  </Text>
+                )}
+                <Input
                   placeholder="Telefone"
-                  onChangeText={handleChange('phone')}
-                  onBlur={handleBlur('phone')}
-                  value={values.phone}
-                  keyboardType="phone-pad"
+                  handleChangeProp={handleChange('phone')}
+                  onBlurProp={handleBlur('phone')}
+                  valueProp={values.phone}
+                  keyboradTypeProp="email-address"
+                  source={theme.icons.phoneIcon}
                 />
-              </ViewInput>
-              {errors.phone && touched.phone && (
-                <Text
-                  style={{
-                    fontSize: 10,
-                    color: 'red',
-                  }}>
-                  {errors.phone}
-                </Text>
-              )}
+                {errors.phone && touched.phone && (
+                  <Text
+                    style={{
+                      fontSize: 10,
+                      color: 'red',
+                    }}>
+                    {errors.phone}
+                  </Text>
+                )}
+              </Content>
 
               {values.name !== '' && values.phone !== '' ? (
                 <ButtonLogin

@@ -11,20 +11,20 @@ import PizzaPng from '../../assets/images/pizza.png';
 import XburguerPng from '../../assets/images/xburguer.png';
 import KetchupPng from '../../assets/images/ketchup.png';
 import HiddenPassword from '../../assets/imageIcons/hiddenPassword.png';
-import Email from '../../assets/imageIcons/email.png';
 import PasswordDown from '../../assets/imageIcons/password.png';
 
 import {
   Container,
-  ValueInput,
   Ketchup,
   Pizza,
+  Logo,
   Xburguer,
-  ViewInput,
-  Password,
+  Content,
 } from './login.styles';
 import api from '../../service/api';
 import {useAuth} from '../../contexts/auth';
+import {useTheme} from 'styled-components';
+import {Input} from '../../components/Input/input.component';
 
 export interface IUsuario {
   email: string;
@@ -36,6 +36,8 @@ export function Login() {
   const [check, setCheck] = useState(false);
   const navigation = useNavigation();
   const {setSigned, signed, setAuthState, setUser} = useAuth();
+
+  const theme = useTheme();
 
   const loginValidationSchema = yup.object().shape({
     email: yup
@@ -76,7 +78,7 @@ export function Login() {
       <Pizza source={PizzaPng} />
       <Xburguer source={XburguerPng} />
       <Ketchup source={KetchupPng} />
-      <Image source={MiniLogo} />
+      <Logo source={MiniLogo} />
 
       <Formik
         validationSchema={loginValidationSchema}
@@ -97,125 +99,81 @@ export function Login() {
           errors,
           touched,
           isValid,
-        }) => {
-          return (
-            <>
-              <ViewInput>
-                <Image
-                  source={Email}
-                  style={{position: 'absolute', left: 0, marginHorizontal: 10}}
-                />
-                <ValueInput
-                  placeholder="Email Address"
-                  onChangeText={handleChange('email')}
-                  onBlur={handleBlur('email')}
-                  value={values.email}
-                  keyboardType="email-address"
-                />
-              </ViewInput>
-              {errors.email && touched.email && (
-                <Text
-                  style={{
-                    fontSize: 10,
-                    color: 'red',
-                  }}>
-                  {errors.email}
-                </Text>
-              )}
+        }) => (
+          <>
+          <Content>
 
-              <ViewInput>
-                <Password style={{alignItems: 'center'}}>
-                  <Image source={PasswordDown} />
-                </Password>
-                {check ? (
-                  <TouchableOpacity
-                  style={{
-                    position: 'absolute',
-                    right: 0,
-                  }}
-                    onPress={() => {
-                      setCheck(!check);
-                    }}>
-                    <Image
-                      source={HiddenPassword}
-                      style={{
-                        marginHorizontal: 10,
-                        backgroundColor: '#55a2',
-                        borderRadius: 8,
-                      }}
-                    />
-                  </TouchableOpacity>
-                ) : (
-                  <TouchableOpacity
-                  style={{
-                    position: 'absolute',
-                    right: 0,
-                  }}
-                    onPress={() => {
-                      setCheck(!check);
-                    }}>
-                    <Image
-                      source={HiddenPassword}
-                      style={{
-                        marginHorizontal: 10,
-                      }}
-                    />
-                  </TouchableOpacity>
-                )}
-                <ValueInput
-                  placeholder="Password"
-                  onChangeText={handleChange('password')}
-                  onBlur={handleBlur('password')}
-                  defaultValue="123456"
-                  value={values.password}
-                  secureTextEntry={!check}
-                />
-              </ViewInput>
-              <View style={{width: 295, alignItems: 'flex-end'}}>
-                <TouchableOpacity activeOpacity={0.8}>
-                  <Text
-                    style={{
-                      paddingTop: 12,
-                      fontWeight: 'bold',
-                      color: '#68484A',
-                    }}>
-                    Esqueci minha senha
-                  </Text>
-                </TouchableOpacity>
-              </View>
-              {errors.password && touched.password && (
+            <Input
+              source={theme.icons.emailIcon}
+              handleChangeProp={handleChange('email')}
+              valueProp={values.email}
+              onBlurProp={handleBlur('email')}
+              placeholder="Email Address"
+              keyboradTypeProp="email-address"
+              />
+            {errors.email && touched.email && (
+              <Text
+              style={{
+                fontSize: 10,
+                color: 'red',
+              }}>
+                {errors.email}
+              </Text>
+            )}
+
+            <Input
+              handleChangeProp={handleChange('password')}
+              keyboradTypeProp={'default'}
+              placeholder="Password"
+              onBlurProp={handleBlur('password')}
+              source={theme.icons.passwordIcon}
+              valueProp={values.password}
+              />
+            {errors.password && touched.password && (
+              <Text
+              style={{
+                fontSize: 10,
+                color: 'red',
+              }}>
+                {errors.password}
+              </Text>
+            )}
+                </Content>
+            <View style={{width: 295, alignItems: 'flex-end'}}>
+              <TouchableOpacity activeOpacity={0.8}>
                 <Text
                   style={{
-                    fontSize: 10,
-                    color: 'red',
+                    paddingTop: 12,
+                    fontWeight: 'bold',
+                    color: '#68484A',
                   }}>
-                  {errors.password}
+                  Esqueci minha senha
                 </Text>
-              )}
-              {values.password !== '' && values.email !== '' ? (
-                <ButtonLogin
-                  title="Continuar"
-                  activeOpacity={0.8}
-                  style={isValid ? {opacity: 1} : {opacity: 0.6}}
-                  disabled={!isValid}
-                  onPress={() => {
-                    handleSubmit();
-                  }}
-                />
-              ) : (
-                <ButtonLogin
-                  style={{opacity: 0.6}}
-                  title="Continuar"
-                  activeOpacity={0.8}
-                  disabled
-                  onPress={() => {
-                    handleSubmit();
-                  }}
-                />
-              )}
-            </>
-          );
-        }}
+              </TouchableOpacity>
+            </View>
+            {values.password !== '' && values.email !== '' ? (
+              <ButtonLogin
+                title="Continuar"
+                activeOpacity={0.8}
+                style={isValid ? {opacity: 1} : {opacity: 0.6}}
+                disabled={!isValid}
+                onPress={() => {
+                  handleSubmit();
+                }}
+              />
+            ) : (
+              <ButtonLogin
+                style={{opacity: 0.6}}
+                title="Continuar"
+                activeOpacity={0.8}
+                disabled
+                onPress={() => {
+                  handleSubmit();
+                }}
+              />
+            )}
+          </>
+        )}
       </Formik>
       <TouchableOpacity
         activeOpacity={0.8}

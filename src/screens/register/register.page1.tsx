@@ -5,7 +5,6 @@
 import React, { useState } from 'react';
 import * as yup from 'yup'
 import {
-  Button,
   Image,
   Text, TouchableOpacity, View,
 } from 'react-native';
@@ -20,15 +19,17 @@ import BackPng from '../../assets/imageIcons/back.png'
 
 
 import {
-  Container, ValueInput, ViewInput, Password,
+  Container, ValueInput, ViewInput, Password, Content,
 } from './register.styles';
 import { useRegister } from '../../contexts/Register';
 import { Header } from '../../components/Headers/header.component';
+import { Input } from '../../components/Input/input.component';
+import { useTheme } from 'styled-components';
 
 export function Register1() {
-  const [check, setCheck] = useState(Boolean)
   const { body } = useRegister()
   const navigation = useNavigation()
+  const theme = useTheme();
 
   const loginValidationSchema = yup.object().shape({
     email: yup
@@ -59,7 +60,7 @@ export function Register1() {
     }}
 
     >
-      <Header color='#fff' name='Cadastro' source={BackPng} onPress={() => handleBack()} Textcolor='#2B2B2E'/>
+      <Header color="#fff" name="Cadastro" source={BackPng} onPress={() => handleBack()} Textcolor="#2B2B2E"/>
       <View style={{ height: 30 }} />
       <Image source={Register1png} />
       <Formik
@@ -84,89 +85,38 @@ export function Register1() {
           isValid,
         }) => (
           <>
-            <ViewInput>
-              <Image source={Email} style={{
-                position: 'absolute',
-                left: 0,
-                marginHorizontal: 10,
-              }}
+          <Content>
+
+            <Input
+              source={theme.icons.emailIcon}
+              handleChangeProp={handleChange('email')}
+              valueProp={values.email}
+              onBlurProp={handleBlur('email')}
+              placeholder="Email Address"
+              keyboradTypeProp="email-address"
               />
-              <ValueInput
-                placeholder="Email Address"
-                onChangeText={handleChange('email')}
-                onBlur={handleBlur('email')}
-                value={values.email}
-                keyboardType="email-address"
-              />
-            </ViewInput>
             {(errors.email && touched.email)
                   && (
-                  <Text style={{
-                    fontSize: 10,
-                    color: 'red',
-                  }}
-                  >
+                    <Text style={{
+                      fontSize: 10,
+                      color: 'red',
+                    }}
+                    >
                     {errors.email}
                   </Text>
                   )}
-             <ViewInput>
-                <Password style={{alignItems: 'center'}}>
-                  <Image source={PasswordDown} />
-                </Password>
-                {check ? (
-                  <View style={{
-                    position: 'absolute',
-                    justifyContent: 'center',
-                    right: 0,
-                    height: 50,
-                   }}>
-                  <TouchableOpacity
-                    onPress={() => {
-                      setCheck(!check);
-                    }}>
-                    <Image
-                      source={HiddenPassword}
-                      style={{
-                        marginHorizontal: 10,
-                        backgroundColor: '#55a2',
-                        borderRadius: 8,
-                      }}
-                    />
-                  </TouchableOpacity>
-                  </View>
-                ) : (
-                  <View style={{
-                    position: 'absolute',
-                    justifyContent: 'center',
-                    right: 0,
-                    height: 50,
-                   }}>
-                  <TouchableOpacity
-                    style={{width: '100%', height: 40, alignItems: 'center', justifyContent: 'center',}}
-                    onPress={() => {
-                      setCheck(!check);
-                    }}>
-                    <Image
-                      source={HiddenPassword}
-                      style={{
-                        marginHorizontal: 10,
-                      }}
-                    />
-                  </TouchableOpacity>
-                  </View>
-                )}
-                <ValueInput
-                  placeholder="Password"
-                  onChangeText={handleChange('password')}
-                  onBlur={handleBlur('password')}
-                  defaultValue="123456"
-                  value={values.password}
-                  secureTextEntry={!check}
-                />
-              </ViewInput>
+                  <Input
+              source={theme.icons.passwordIcon}
+              handleChangeProp={handleChange('password')}
+              valueProp={values.password}
+              onBlurProp={handleBlur('password_email')}
+              
+              placeholder="Senha"
+              keyboradTypeProp="default"
+              />
             {(errors.password && touched.password)
                   && (
-                  <Text style={{
+                    <Text style={{
                     fontSize: 10,
                     color: 'red',
                   }}
@@ -174,18 +124,14 @@ export function Register1() {
                     {errors.password}
                   </Text>
                   )}
-            <ViewInput>
-              <Password style={{ alignItems: 'center' }}>
-                <Image source={PasswordDown} />
-              </Password>
-              <ValueInput
-                onChangeText={handleChange('password_confirm')}
-                onBlur={handleBlur('password_confirm')}
-                value={values.password_confirm}
-                secureTextEntry={!check}
-                placeholder="Confirmar Senha"
+            <Input
+              source={theme.icons.passwordIcon}
+              handleChangeProp={handleChange('password_confirm')}
+              valueProp={values.password_confirm}
+              placeholder="Confirmar Senha"
+              keyboradTypeProp="default"
               />
-            </ViewInput>
+              </Content>
             {values.password !== '' && values.email !== ''
               ? (
                 <ButtonLogin
