@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable no-console */
 import React from 'react';
-import {Alert, Image, ScrollView, Text, View} from 'react-native';
+import {Alert, Image, Text, View} from 'react-native';
 import * as yup from 'yup';
 import {Formik} from 'formik';
 import {useNavigation} from '@react-navigation/native';
@@ -13,13 +13,8 @@ import {
   InputSecondView,
   InputView,
   NicknameWrapper,
-  ValueInput,
-  ValueMiniInput,
-  ViewInput,
-  ViewMiniInput,
 } from './register.styles';
 
-import Location from '../../assets/imageIcons/location.png';
 import Register3png from '../../assets/resgister/register3.png';
 
 import {AuthProvider} from '../../contexts/auth';
