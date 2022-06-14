@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable prettier/prettier */
 import React, { useEffect, useState} from 'react';
@@ -5,11 +6,9 @@ import {Image, StatusBar, View} from 'react-native';
 import {CardRestaurant} from '../../components/cardRestaurant/cardRestaurant.component';
 import {BannerHomeImage} from '../../components/Carousel/carousel.component';
 import {Categories} from '../../components/categories/categories.component';
-import {Header} from '../../components/Headers/header.component';
 import {SearchRestaurants} from '../../components/SearchRestaurants/searchRestaurants.component';
 import {Load} from '../../components/ViewLoading/viewLoading.component';
 import {useAuth} from '../../contexts/auth';
-import theme from '../../global/theme';
 import api from '../../service/api';
 
 import {
@@ -112,7 +111,6 @@ export function Home() {
             </View>
           }
         />
-        
       </Container>
     </>
   );
