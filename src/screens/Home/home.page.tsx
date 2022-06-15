@@ -1,15 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable prettier/prettier */
 import React, { useEffect, useState} from 'react';
-import {Image, StatusBar, View} from 'react-native';
+import { StatusBar } from 'react-native';
+import { useDebouncedCallback } from 'use-debounce';
 import {CardRestaurant} from '../../components/cardRestaurant/cardRestaurant.component';
 import {BannerHomeImage} from '../../components/Carousel/carousel.component';
 import {Categories} from '../../components/categories/categories.component';
-import {Header} from '../../components/Headers/header.component';
 import {SearchRestaurants} from '../../components/SearchRestaurants/searchRestaurants.component';
 import {Load} from '../../components/ViewLoading/viewLoading.component';
 import {useAuth} from '../../contexts/auth';
-import theme from '../../global/theme';
 import api from '../../service/api';
 
 import {
@@ -18,6 +17,9 @@ import {
   CategoryTitleWrapper,
   CategoryTitle,
   Content,
+  CardRestaurantView,
+  Header,
+  ViewLoading,
 } from './home.styles';
 
 interface Response {
@@ -28,21 +30,24 @@ interface Response {
 
 interface RestaurantListProps {
   content: Response[];
+  totalPages: number;
 }
 
 export function Home() {
   const {authState} = useAuth();
   const [data, setData] = useState([]);
+  const [search, setSearch] = useState({
+    page : 0,
+    name : '',
+  });
   const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(0);
-
   async function fetchData(
     onSuccess?: (response: RestaurantListProps) => void,
   ) {
     setLoading(true);
     try {
       await api
-        .get<RestaurantListProps>(`/restaurant?page=${page}&quantity=10`, {
+        .get<RestaurantListProps>(`/restaurant/filter?name=${search.name}&page=${search.page}&quantity=10`, {
           headers: {
             Authorization: `Bearer ${authState.token}`,
           },
@@ -63,17 +68,32 @@ export function Home() {
 
   async function loadRestaurants() {
     await fetchData(onSucces);
-    setPage(1);
   }
 
-  async function handleLoadOnEnd() {
-    await fetchData(onSucces);
-    setPage(page + 1);
+  async function handleLoadOnEnd(response: RestaurantListProps) {
+    if (response.totalPages !== search.page ){
+    setSearch({...search, page : search.page + 1});
   }
+  }
+
+  function handleSearch(value:string) {
+    if (value.length > 1) {
+      setData([]);
+      setSearch({name: value, page: 0});
+    }
+    else {
+      setData([]);
+      setSearch({name: '', page: 0});
+    }
+
+  }
+  const debounced = useDebouncedCallback(value => {
+    handleSearch(value);
+  }, 1500);
 
   useEffect(() => {
     loadRestaurants();
-  }, []);
+  }, [search]);
 
   return (
     <>
@@ -84,35 +104,34 @@ export function Home() {
           keyExtractor={(item: any) => item.id}
           ListHeaderComponent={
             <>
-            <View style={{alignItems: 'center', backgroundColor: '#c20c18'}}>
-            <Image source={require('../../assets/homeImages/header.png')} style={{width: '100%'}}/>
+            <Header source={require('../../assets/homeImages/header.png')}/>
 
-            </View>
             <BannerHomeImage />
             <CategoryTitleWrapper>
             <CategoryTitle>Categorias</CategoryTitle>
             </CategoryTitleWrapper>
             <Categories />
             <Content>
-            <SearchRestaurants />
+            <SearchRestaurants
+            onChangeText={(value) => debounced(value)}
+            />
             </Content>
             </>
           }
           numColumns={2}
           renderItem={({item}: any) => (
-            <View style={{flexGrow: 1, marginLeft: 14}}>
+            <CardRestaurantView>
               <CardRestaurant name={item.name} category="Pizza" rate={4.3} />
-            </View>
+            </CardRestaurantView>
           )}
-          onEndReached={() => handleLoadOnEnd()}
+          onEndReached={(value: any) => handleLoadOnEnd(value)}
 
           ListFooterComponent={
-            <View style={{height: 50, justifyContent: 'center'}}>
+            <ViewLoading>
             {loading ? <Load /> : null}
-            </View>
+            </ViewLoading>
           }
         />
-        
       </Container>
     </>
   );

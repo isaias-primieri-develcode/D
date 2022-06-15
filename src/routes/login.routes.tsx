@@ -1,5 +1,5 @@
-import React from 'react';
-// import RNBootSplash from 'react-native-bootsplash'
+import React, {useEffect} from 'react';
+import RNBootSplash from 'react-native-bootsplash';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import {Register1} from '../screens/register/register.page1';
@@ -12,9 +12,9 @@ import {Login} from '../screens/Login/login.page';
 const Stack = createNativeStackNavigator();
 
 export function LoginRoutes() {
-  // useEffect(() => {
-  //   RNBootSplash.hide({ fade: true })
-  // }, [])
+  useEffect(() => {
+    RNBootSplash.hide({fade: true});
+  }, []);
   return (
     <Stack.Navigator>
       <Stack.Screen

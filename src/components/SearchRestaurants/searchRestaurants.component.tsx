@@ -1,24 +1,28 @@
-/* eslint-disable react/require-default-props */
-/* eslint-disable no-unused-vars */
-import React from 'react'
+import React from 'react';
 import {
   Container,
   ImageSearch,
   InputRestaurants,
   TextInputMod,
   ViewSearch,
-} from './searchRestaurants.component.styles'
+} from './searchRestaurants.component.styles';
 
+interface Props {
+  onChangeText: (value: string) => void;
+}
 
-export function SearchRestaurants() {
+export function SearchRestaurants({onChangeText}: Props) {
   return (
     <Container>
       <InputRestaurants>
         <ViewSearch>
           <ImageSearch source={require('../../assets/imageIcons/search.png')} />
         </ViewSearch>
-        <TextInputMod placeholder="Buscar restaurantes" />
+        <TextInputMod
+          onChangeText={onChangeText}
+          placeholder="Buscar restaurantes"
+        />
       </InputRestaurants>
     </Container>
-  )
+  );
 }

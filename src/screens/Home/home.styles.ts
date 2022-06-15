@@ -9,6 +9,10 @@ export const Container = styled.View`
   align-items: center;
 `;
 
+export const Header = styled.Image`
+  width: 100%;
+`;
+
 export const CarouselImg = styled.Image`
   top: 20px;
 `;
@@ -35,8 +39,12 @@ export const Content = styled.View`
 
 export const RestaurantList = styled.FlatList``;
 
+export const CardRestaurantView = styled.View`
+  flex-grow: 1;
+  margin-left: 14px;
+`;
+
 export const ViewLoading = styled.View`
-  width: 100%;
-  height: ${RFValue(80)}px;
+  height: ${RFValue(50)}px;
   justify-content: center;
 `;

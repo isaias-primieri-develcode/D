@@ -101,44 +101,43 @@ export function Login() {
           isValid,
         }) => (
           <>
-          <Content>
-
-            <Input
-              source={theme.icons.emailIcon}
-              handleChangeProp={handleChange('email')}
-              valueProp={values.email}
-              onBlurProp={handleBlur('email')}
-              placeholder="Email Address"
-              keyboradTypeProp="email-address"
+            <Content>
+              <Input
+                source={theme.icons.emailIcon}
+                handleChangeProp={handleChange('email')}
+                valueProp={values.email}
+                onBlurProp={handleBlur('email')}
+                placeholder="Email Address"
+                keyboradTypeProp="email-address"
               />
-            {errors.email && touched.email && (
-              <Text
-              style={{
-                fontSize: 10,
-                color: 'red',
-              }}>
-                {errors.email}
-              </Text>
-            )}
+              {errors.email && touched.email && (
+                <Text
+                  style={{
+                    fontSize: 10,
+                    color: 'red',
+                  }}>
+                  {errors.email}
+                </Text>
+              )}
 
-            <Input
-              handleChangeProp={handleChange('password')}
-              keyboradTypeProp={'default'}
-              placeholder="Password"
-              onBlurProp={handleBlur('password')}
-              source={theme.icons.passwordIcon}
-              valueProp={values.password}
+              <Input
+                handleChangeProp={handleChange('password')}
+                keyboradTypeProp={'default'}
+                placeholder="Password"
+                onBlurProp={handleBlur('password')}
+                source={theme.icons.passwordIcon}
+                valueProp={values.password}
               />
-            {errors.password && touched.password && (
-              <Text
-              style={{
-                fontSize: 10,
-                color: 'red',
-              }}>
-                {errors.password}
-              </Text>
-            )}
-                </Content>
+              {errors.password && touched.password && (
+                <Text
+                  style={{
+                    fontSize: 10,
+                    color: 'red',
+                  }}>
+                  {errors.password}
+                </Text>
+              )}
+            </Content>
             <View style={{width: 295, alignItems: 'flex-end'}}>
               <TouchableOpacity activeOpacity={0.8}>
                 <Text
@@ -178,7 +177,7 @@ export function Login() {
       <TouchableOpacity
         activeOpacity={0.8}
         style={{flexDirection: 'row'}}
-        onPress={() => navigation.navigate('Register1')}>
+        onPress={() => navigation.navigate('Register1' as never)}>
         <Text
           style={{
             marginTop: 16,
