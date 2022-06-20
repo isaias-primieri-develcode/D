@@ -24,6 +24,7 @@ import {Header} from '../../components/Headers/header.component';
 import BackPng from '../../assets/imageIcons/back.png';
 import {Input} from '../../components/Input/input.component';
 import {useTheme} from 'styled-components';
+import { PhoneInput } from '../../components/Input/phoneInput.component';
 
 export function Register3() {
   const {body} = useRegister();
@@ -101,7 +102,7 @@ export function Register3() {
                 <View style={{flexDirection: 'row'}}>
                   <NicknameWrapper>
                     <Input
-                      placeholder="Apelido"
+                      placeholder="Apelido do End."
                       handleChangeProp={handleChange('nickname')}
                       onBlurProp={handleBlur('nickname')}
                       valueProp={values.nickname}
@@ -119,12 +120,12 @@ export function Register3() {
                     )}
                   </NicknameWrapper>
                   <CepWrapper>
-                    <Input
+                    <PhoneInput
                       placeholder="CEP"
                       handleChangeProp={handleChange('cep')}
                       onBlurProp={handleBlur('cep')}
                       valueProp={values.cep}
-                      keyboradTypeProp="email-address"
+                      keyboradTypeProp="numeric"
                       source={theme.icons.Location}
                     />
                     {errors.cep && touched.cep && (
@@ -211,12 +212,12 @@ export function Register3() {
                     )}
                   </InputView>
                   <InputSecondView>
-                    <Input
+                    <PhoneInput
                       placeholder="Número"
                       handleChangeProp={handleChange('number')}
                       onBlurProp={handleBlur('number')}
                       valueProp={values.number}
-                      keyboradTypeProp="email-address"
+                      keyboradTypeProp="numeric"
                       source={theme.icons.Location}
                     />
                     {errors.number && touched.number && (
@@ -235,7 +236,6 @@ export function Register3() {
                 <ButtonLogin
                   title="Continuar"
                   activeOpacity={0.8}
-                  style={isValid ? {opacity: 1} : {opacity: 0.6}}
                   disabled={!isValid}
                   onPress={() => {
                     handleSubmit();
@@ -244,7 +244,6 @@ export function Register3() {
               ) : (
                 <>
                   <ButtonLogin
-                    style={{opacity: 0.6}}
                     title="Continuar"
                     activeOpacity={0.8}
                     disabled

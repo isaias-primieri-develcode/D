@@ -13,13 +13,14 @@ import BackPng from '../../assets/imageIcons/back.png';
 
 import Register2png from '../../assets/resgister/register2.png';
 
-import {Container, Content, ValueInput, ViewInput} from './register.styles';
+import {Container, Content} from './register.styles';
 import {cpf, phoneNumber} from '../../utils/validations';
 import {AuthProvider} from '../../contexts/auth';
 import {useRegister} from '../../contexts/Register';
 import {Header} from '../../components/Headers/header.component';
 import {Input} from '../../components/Input/input.component';
 import {useTheme} from 'styled-components';
+import {PhoneInput} from '../../components/Input/phoneInput.component';
 
 export function Register2() {
   const navigation = useNavigation();
@@ -27,8 +28,11 @@ export function Register2() {
   const loginValidationSchema = Yup.object()
     .shape({
       name: Yup.string().required(),
-      cpf: Yup.string().required().matches(cpf, 'ex: 123.456.789-00'),
-      phone: Yup.string().matches(phoneNumber, 'ex: (DDD) 98765-4321'),
+      cpf: Yup.string().required().matches(cpf, 'CPF inválido').length(11),
+      phone: Yup.string()
+        .required()
+        .matches(phoneNumber, 'Telefone inválido')
+        .length(11),
     })
     .required();
   const {body} = useRegister();
@@ -54,6 +58,7 @@ export function Register2() {
             body.costumer.firstName = values.name;
             body.costumer.cpf = values.cpf;
             body.costumer.phone = values.phone;
+            console.log(body);
           }}>
           {({
             handleChange,
@@ -88,12 +93,12 @@ export function Register2() {
                   keyboradTypeProp="email-address"
                   source={theme.icons.nameIcon}
                 />
-                <Input
+                <PhoneInput
                   placeholder="CPF"
                   handleChangeProp={handleChange('cpf')}
                   onBlurProp={handleBlur('cpf')}
                   valueProp={values.cpf}
-                  keyboradTypeProp="email-address"
+                  keyboradTypeProp="numeric"
                   source={theme.icons.cpfIcon}
                 />
                 {errors.cpf && touched.cpf && (
@@ -105,12 +110,12 @@ export function Register2() {
                     {errors.cpf}
                   </Text>
                 )}
-                <Input
+                <PhoneInput
                   placeholder="Telefone"
                   handleChangeProp={handleChange('phone')}
                   onBlurProp={handleBlur('phone')}
                   valueProp={values.phone}
-                  keyboradTypeProp="email-address"
+                  keyboradTypeProp="numeric"
                   source={theme.icons.phoneIcon}
                 />
                 {errors.phone && touched.phone && (
@@ -128,7 +133,6 @@ export function Register2() {
                 <ButtonLogin
                   title="Continuar"
                   activeOpacity={0.8}
-                  style={isValid ? {opacity: 1} : {opacity: 0.6}}
                   disabled={!isValid}
                   onPress={() => {
                     navigation.navigate('Register3');
@@ -137,12 +141,7 @@ export function Register2() {
                 />
               ) : (
                 <>
-                  <ButtonLogin
-                    style={{opacity: 0.6}}
-                    title="Continuar"
-                    activeOpacity={0.8}
-                    disabled
-                  />
+                  <ButtonLogin title="Continuar" activeOpacity={0.8} disabled />
                   <Text style={{color: 'red', marginTop: 16}}>
                     Preencha todos os campos
                   </Text>

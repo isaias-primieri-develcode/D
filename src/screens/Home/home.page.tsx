@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable prettier/prettier */
-import React, { useEffect, useState} from 'react';
-import { StatusBar } from 'react-native';
-import { useDebouncedCallback } from 'use-debounce';
+import {useNavigation} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
+import {StatusBar} from 'react-native';
+import {useDebouncedCallback} from 'use-debounce';
 import {CardRestaurant} from '../../components/cardRestaurant/cardRestaurant.component';
 import {BannerHomeImage} from '../../components/Carousel/carousel.component';
 import {Categories} from '../../components/categories/categories.component';
@@ -22,10 +22,16 @@ import {
   ViewLoading,
 } from './home.styles';
 
+interface foodTypeProps {
+  id: number;
+  name: string;
+}
+
 interface Response {
   id: number;
   name: string;
-  photo: string;
+  photo_url: string;
+  food_types: foodTypeProps[];
 }
 
 interface RestaurantListProps {
@@ -35,23 +41,27 @@ interface RestaurantListProps {
 
 export function Home() {
   const {authState} = useAuth();
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<RestaurantListProps[]>([]);
   const [search, setSearch] = useState({
-    page : 0,
-    name : '',
+    page: 0,
+    name: '',
   });
   const [loading, setLoading] = useState(false);
+  const navigation = useNavigation();
   async function fetchData(
     onSuccess?: (response: RestaurantListProps) => void,
   ) {
     setLoading(true);
     try {
       await api
-        .get<RestaurantListProps>(`/restaurant/filter?name=${search.name}&page=${search.page}&quantity=10`, {
-          headers: {
-            Authorization: `Bearer ${authState.token}`,
+        .get<RestaurantListProps>(
+          `/restaurant/filter?name=${search.name}&page=${search.page}&quantity=10`,
+          {
+            headers: {
+              Authorization: `Bearer ${authState.token}`,
+            },
           },
-        })
+        )
         .then((response: any) => {
           setData(response.data);
           onSuccess && onSuccess(response.data);
@@ -63,7 +73,7 @@ export function Home() {
   }
 
   function onSucces(response: any) {
-    setData([...data, ...response.content] as never);
+    setData([...data, ...response.content]);
   }
 
   async function loadRestaurants() {
@@ -71,22 +81,35 @@ export function Home() {
   }
 
   async function handleLoadOnEnd(response: RestaurantListProps) {
-    if (response.totalPages !== search.page ){
-    setSearch({...search, page : search.page + 1});
-  }
+    if (response.totalPages !== search.page) {
+      setSearch({...search, page: search.page + 1});
+    }
   }
 
-  function handleSearch(value:string) {
+  function handleSearch(value: string) {
     if (value.length > 1) {
       setData([]);
       setSearch({name: value, page: 0});
-    }
-    else {
+    } else {
       setData([]);
       setSearch({name: '', page: 0});
     }
-
   }
+
+  function handleRestaurantProps(
+    id: number,
+    name: string,
+    food_types: string,
+    photo_url: string,
+  ) {
+    navigation.navigate('RestaurantProfile', {
+      id,
+      name,
+      food_types,
+      photo_url,
+    } as never);
+  }
+
   const debounced = useDebouncedCallback(value => {
     handleSearch(value);
   }, 1500);
@@ -98,38 +121,51 @@ export function Home() {
   return (
     <>
       <Container>
-          <StatusBar barStyle="dark-content" backgroundColor="#c20c18" />
+        <StatusBar barStyle="dark-content" backgroundColor="#c20c18" />
         <RestaurantList
           data={data}
           keyExtractor={(item: any) => item.id}
           ListHeaderComponent={
             <>
-            <Header source={require('../../assets/homeImages/header.png')}/>
-
-            <BannerHomeImage />
-            <CategoryTitleWrapper>
-            <CategoryTitle>Categorias</CategoryTitle>
-            </CategoryTitleWrapper>
-            <Categories />
-            <Content>
-            <SearchRestaurants
-            onChangeText={(value) => debounced(value)}
-            />
-            </Content>
+              <Header source={require('../../assets/homeImages/header.png')} />
+              <BannerHomeImage />
+              <CategoryTitleWrapper>
+                <CategoryTitle>Categorias</CategoryTitle>
+              </CategoryTitleWrapper>
+              <Categories />
+              <Content>
+                <SearchRestaurants
+                  text="Buscar Restaurantes"
+                  onChangeText={value => debounced(value)}
+                />
+              </Content>
             </>
           }
           numColumns={2}
           renderItem={({item}: any) => (
             <CardRestaurantView>
-              <CardRestaurant name={item.name} category="Pizza" rate={4.3} />
+              <CardRestaurant
+                name={item.name}
+                category={item.food_types.length > 0
+                  ? item.food_types[0]?.name.charAt(0).toUpperCase() +
+                    item.food_types[0]?.name.slice(1).toLowerCase()
+                  : ''}
+                rate={4.3}
+                source={item.photo_url}
+                onPress={() =>
+                  handleRestaurantProps(
+                    item.id,
+                    item.name,
+                    item.food_types.length > 0 ? item.food_types[0].name : '',
+                    item.photo_url,
+                  )
+                }
+              />
             </CardRestaurantView>
           )}
           onEndReached={(value: any) => handleLoadOnEnd(value)}
-
           ListFooterComponent={
-            <ViewLoading>
-            {loading ? <Load /> : null}
-            </ViewLoading>
+            <ViewLoading>{loading ? <Load /> : null}</ViewLoading>
           }
         />
       </Container>

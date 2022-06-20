@@ -92,7 +92,7 @@ export function Register1() {
               handleChangeProp={handleChange('email')}
               valueProp={values.email}
               onBlurProp={handleBlur('email')}
-              placeholder="Email Address"
+              placeholder="exemplo@email.com"
               keyboradTypeProp="email-address"
               />
             {(errors.email && touched.email)
@@ -110,8 +110,7 @@ export function Register1() {
               handleChangeProp={handleChange('password')}
               valueProp={values.password}
               onBlurProp={handleBlur('password_email')}
-              
-              placeholder="Senha"
+              placeholder="senha"
               keyboradTypeProp="default"
               />
             {(errors.password && touched.password)
@@ -128,7 +127,7 @@ export function Register1() {
               source={theme.icons.passwordIcon}
               handleChangeProp={handleChange('password_confirm')}
               valueProp={values.password_confirm}
-              placeholder="Confirmar Senha"
+              placeholder="confirmar Senha"
               keyboradTypeProp="default"
               />
               </Content>
@@ -137,7 +136,6 @@ export function Register1() {
                 <ButtonLogin
                   title="Continuar"
                   activeOpacity={0.8}
-                  style={isValid ? { opacity: 1 } : { opacity: 0.6 }}
                   disabled={!isValid}
                   onPress={() => {
                     navigation.navigate('Register2')
@@ -148,7 +146,6 @@ export function Register1() {
               : (
                 <>
                   <ButtonLogin
-                    style={{ opacity: 0.6 }}
                     title="Continuar"
                     activeOpacity={0.8}
                     disabled

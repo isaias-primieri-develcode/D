@@ -1,9 +1,10 @@
-/* eslint-disable no-unused-vars */
-export declare global{
-  namespace ReactNavigation{
-    interface RootParamList{
-      screenA :undefined
-      screenB: undefined
+export declare global {
+  namespace ReactNavigation {
+    interface RootParamList {
+      RestaurantProfile: undefined;
+      Register1: undefined;
+      Login: undefined;
+      Home: undefined;
     }
   }
 }

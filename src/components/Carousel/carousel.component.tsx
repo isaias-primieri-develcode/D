@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {ScrollView, Image, View} from 'react-native';
 import theme from '../../global/theme';
@@ -7,6 +8,7 @@ export function BannerHomeImage() {
   return (
     <Container>
       <ScrollView
+        contentContainerStyle={{paddingHorizontal: 12}}
         scrollEventThrottle={3}
         horizontal
         showsHorizontalScrollIndicator={false}>
@@ -14,9 +16,8 @@ export function BannerHomeImage() {
         <ImageBanner source={theme.icons.prato2} />
         <ImageBanner source={theme.icons.prato3} />
       </ScrollView>
-      <View style={{alignItems: 'center'}}>
+      <View style={{alignItems: 'center', marginTop: 4}}>
         <Image source={require('../../assets/homeImages/Indicators.png')} />
-
       </View>
     </Container>
   );

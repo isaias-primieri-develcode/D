@@ -5,6 +5,7 @@ import colors from '../../global/theme';
 export const Container = styled.View`
   width: 100%;
   align-self: center;
+  background-color: ${({theme}) => theme.colors.background};
   margin-top: ${RFValue(12)}px;
 `;
 

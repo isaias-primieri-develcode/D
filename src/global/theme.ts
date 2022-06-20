@@ -37,7 +37,9 @@ export default {
     cpfIcon: require('../assets/imageIcons/cpf.png'),
     phoneIcon: require('../assets/imageIcons/phone.png'),
     Location: require('../assets/imageIcons/location.png'),
-
+    BackIcon: require('../assets/imageIcons/back.png'),
+    DefaultRestaurant: require('../assets/images/default.png'),
+    NotFound: require('../assets/images/not_found.png'),
   },
 
   images: {

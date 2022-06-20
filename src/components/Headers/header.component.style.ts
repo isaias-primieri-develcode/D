@@ -5,6 +5,7 @@ export const Container = styled.View`
   width: 100%;
   height: ${RFValue(56)}px;
   align-items: center;
+  background-color: ${({theme}) => theme.colors.background};
   flex-direction: row;
 `;
 

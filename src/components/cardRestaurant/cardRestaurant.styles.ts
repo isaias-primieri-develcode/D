@@ -2,9 +2,10 @@ import {RFValue} from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
 import colors from '../../global/theme';
 
-export const Container = styled.View`
+export const Container = styled.TouchableOpacity`
   width: ${RFValue(156)}px;
   height: ${RFValue(173)}px;
+  background-color: ${({theme}) => theme.colors.background};
   margin-top: ${RFValue(18)}px;
   border-radius: 8px;
 `;
@@ -22,7 +23,7 @@ export const ViewFavorite = styled.View`
   border-top-right-radius: 8px;
   border-bottom-left-radius: 16px;
   border-width: 1px;
-  border-color: #DEDCDC;
+  border-color: ${({theme}) => theme.colors.border_color};
 `;
 
 export const ImageFavorite = styled.Image`

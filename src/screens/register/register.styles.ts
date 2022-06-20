@@ -2,7 +2,7 @@ import {RFValue} from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-  background-color: #fff;
+  background-color: ${({theme}) => theme.colors.background};
   align-items: center;
   flex: 1;
 `;
@@ -33,10 +33,15 @@ export const Ketchup = styled.Image`
   bottom: 0px;
 `;
 
+export const WomanImage = styled.Image`
+margin-top: ${RFValue(90)}px;
+`;
+
 export const TextView = styled.View`
-  width: 273px;
-  height: 42px;
-  margin-bottom: 60px;
+  width: ${RFValue(230)}px;
+  height: ${RFValue(50)}px;
+  margin-top: ${RFValue(36)}px;
+  margin-bottom: ${RFValue(60)}px;
   align-items: flex-start;
   justify-content: center;
 `;
@@ -58,4 +63,11 @@ export const InputView = styled.View`
 export const InputSecondView = styled.View`
   width: 48%;
   margin-left: 2%;
+`;
+
+export const TextInfo = styled.Text`
+  font-size: 12px;
+  text-align: justify;
+  color: ${({theme}) => theme.colors.text_gray};
+  font-weight: 700;
 `;

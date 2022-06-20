@@ -42,11 +42,11 @@ export function LoginRoutes() {
         name="RegisterSucess"
         component={RegisterSucess}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         options={{headerShown: false, animation: 'fade'}}
         name="Routes"
         component={Routes}
-      />
+      /> */}
     </Stack.Navigator>
   );
 }

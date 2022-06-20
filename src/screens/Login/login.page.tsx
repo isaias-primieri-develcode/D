@@ -107,7 +107,7 @@ export function Login() {
                 handleChangeProp={handleChange('email')}
                 valueProp={values.email}
                 onBlurProp={handleBlur('email')}
-                placeholder="Email Address"
+                placeholder="exemplo@email.com"
                 keyboradTypeProp="email-address"
               />
               {errors.email && touched.email && (
@@ -123,7 +123,7 @@ export function Login() {
               <Input
                 handleChangeProp={handleChange('password')}
                 keyboradTypeProp={'default'}
-                placeholder="Password"
+                placeholder="****************"
                 onBlurProp={handleBlur('password')}
                 source={theme.icons.passwordIcon}
                 valueProp={values.password}
@@ -154,7 +154,6 @@ export function Login() {
               <ButtonLogin
                 title="Continuar"
                 activeOpacity={0.8}
-                style={isValid ? {opacity: 1} : {opacity: 0.6}}
                 disabled={!isValid}
                 onPress={() => {
                   handleSubmit();
@@ -162,7 +161,6 @@ export function Login() {
               />
             ) : (
               <ButtonLogin
-                style={{opacity: 0.6}}
                 title="Continuar"
                 activeOpacity={0.8}
                 disabled
@@ -177,7 +175,7 @@ export function Login() {
       <TouchableOpacity
         activeOpacity={0.8}
         style={{flexDirection: 'row'}}
-        onPress={() => navigation.navigate('Register1' as never)}>
+        onPress={() => navigation.navigate('Register1')}>
         <Text
           style={{
             marginTop: 16,

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Image, View} from 'react-native';
+import {Image, TextInputProps, View} from 'react-native';
 import {useTheme} from 'styled-components';
 import {
   ValueInput,
@@ -8,7 +8,7 @@ import {
   HiddenPassword,
 } from './input.component.style';
 
-interface Props {
+interface Props extends TextInputProps {
   placeholder: string;
   source: any;
   onBlurProp?: (value: any) => void;
@@ -17,7 +17,7 @@ interface Props {
   keyboradTypeProp?: any;
 }
 
-export function Input({
+export function PhoneInput({
   placeholder,
   source,
   handleChangeProp,
@@ -25,24 +25,18 @@ export function Input({
   keyboradTypeProp,
   valueProp,
 }: Props) {
-  const theme = useTheme();
-  const [check, setCheck] = useState(false);
   return (
     <ViewInput>
       <InputIcon source={source} />
       <ValueInput
+        type="cel-phone"
+        options={{maskType: 'BRL', withDDD: true, dddMask: '(99) '}}
         placeholder={placeholder}
         onChangeText={handleChangeProp}
         value={valueProp}
         onBlur={onBlurProp}
         keyboardType={keyboradTypeProp}
-        secureTextEntry={!check}
       />
-      {source === theme.icons.passwordIcon ? (
-        <HiddenPassword onPress={() => setCheck(!check)}>
-          <Image source={theme.icons.hiddenPassword} />
-        </HiddenPassword>
-      ) : null}
     </ViewInput>
   );
 }

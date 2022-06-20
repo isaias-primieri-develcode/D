@@ -19,6 +19,7 @@ export const CarouselImg = styled.Image`
 
 export const CategoryTitleWrapper = styled.View`
   margin-left: ${RFValue(12)}px;
+  margin-top: ${RFValue(8)}px;
   margin-bottom: ${RFValue(18)}px;
 `;
 

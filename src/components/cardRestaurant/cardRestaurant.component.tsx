@@ -1,5 +1,8 @@
-/* eslint-disable global-require */
-import React, {useState} from 'react';
+/* eslint-disable react-native/no-inline-styles */
+import React, {useEffect, useState} from 'react';
+import {useAuth} from '../../contexts/auth';
+import theme from '../../global/theme';
+import api from '../../service/api';
 import {
   Container,
   ImageFavorite,
@@ -14,18 +17,50 @@ import {
   ViewInfo,
 } from './cardRestaurant.styles';
 
+interface Photo {
+  id: number;
+  code: string;
+}
+
 interface Props {
   name: string;
   category: string;
   rate: number;
+  source: any;
+  onPress: () => void;
 }
 
-export function CardRestaurant({name, category, rate}: Props) {
+export function CardRestaurant({name, category, rate, onPress, source}: Props) {
   const [isPressed, setIsPressed] = useState(false);
+  const [data, setData] = useState<Photo>([]);
+  const {authState} = useAuth();
+  function FetchData() {
+    try {
+      api
+        .get(source, {
+          headers: {
+            Authorization: `Bearer ${authState.token}`,
+          },
+        })
+        .then((response: any) => {
+          setData(response.data);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    FetchData();
+  }, []);
 
   return (
-    <Container>
-      <ImageRestaurant source={require('../../assets/images/default.png')} />
+    <Container activeOpacity={0} onPress={onPress}>
+      <ImageRestaurant
+        source={
+          data.code ? {uri: `${data.code}`} : theme.icons.DefaultRestaurant
+        }
+      />
       <ViewFavorite>
         <FavoriteIconButton onPress={() => setIsPressed(!isPressed)}>
           <ImageFavorite

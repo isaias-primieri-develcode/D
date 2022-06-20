@@ -1,13 +1,13 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
 import {useAuth} from '../contexts/auth';
-import {Routes} from './index.routes';
 import {LoginRoutes} from './login.routes';
+import { RestaurantRoutes } from './restaurant.routes';
 
 const AllRoutes: React.FC = () => {
   const {signed} = useAuth();
 
-  return signed ? <Routes /> : <LoginRoutes />;
+  return signed ? <RestaurantRoutes /> : <LoginRoutes />;
 
 };
 export default AllRoutes;
