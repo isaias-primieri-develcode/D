@@ -1,25 +1,21 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable semi */
 /* eslint-disable prettier/prettier */
-/* eslint-disable no-console */
-import React, { useState } from 'react';
+import React from 'react';
 import * as yup from 'yup'
 import {
   Image,
-  Text, TouchableOpacity, View,
+  Text, View,
 } from 'react-native';
 import { Formik } from 'formik';
 import { useNavigation } from '@react-navigation/native';
 import { ButtonLogin } from '../../components/Button/button.component';
-import HiddenPassword from '../../assets/imageIcons/hiddenPassword.png'
-import Email from '../../assets/imageIcons/email.png'
-import PasswordDown from '../../assets/imageIcons/password.png'
 import Register1png from '../../assets/resgister/register1.png'
 import BackPng from '../../assets/imageIcons/back.png'
 
 
 import {
-  Container, ValueInput, ViewInput, Password, Content,
+  Container, Content,
 } from './register.styles';
 import { useRegister } from '../../contexts/Register';
 import { Header } from '../../components/Headers/header.component';

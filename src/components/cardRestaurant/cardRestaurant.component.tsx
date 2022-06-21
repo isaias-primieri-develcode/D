@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable quotes */
 /* eslint-disable react-native/no-inline-styles */
-import React, {useEffect, useState} from 'react';
-import {useAuth} from '../../contexts/auth';
-import theme from '../../global/theme';
-import api from '../../service/api';
+import React, { useEffect, useState } from "react";
+import { useAuth } from "../../contexts/auth";
+import theme from "../../global/theme";
+import api from "../../service/api";
 import {
   Container,
   ImageFavorite,
@@ -15,7 +17,7 @@ import {
   ViewFavorite,
   FavoriteIconButton,
   ViewInfo,
-} from './cardRestaurant.styles';
+} from "./cardRestaurant.styles";
 
 interface Photo {
   id: number;
@@ -30,10 +32,16 @@ interface Props {
   onPress: () => void;
 }
 
-export function CardRestaurant({name, category, rate, onPress, source}: Props) {
+export function CardRestaurant({
+  name,
+  category,
+  rate,
+  onPress,
+  source,
+}: Props) {
   const [isPressed, setIsPressed] = useState(false);
   const [data, setData] = useState<Photo>([]);
-  const {authState} = useAuth();
+  const { authState } = useAuth();
   function FetchData() {
     try {
       api
@@ -58,14 +66,14 @@ export function CardRestaurant({name, category, rate, onPress, source}: Props) {
     <Container activeOpacity={0} onPress={onPress}>
       <ImageRestaurant
         source={
-          data.code ? {uri: `${data.code}`} : theme.icons.DefaultRestaurant
+          data.code ? { uri: `${data.code}` } : theme.icons.DefaultRestaurant
         }
       />
       <ViewFavorite>
         <FavoriteIconButton onPress={() => setIsPressed(!isPressed)}>
           <ImageFavorite
-            source={require('../../assets/icons/favoriteRestaurant.png')}
-            style={isPressed ? {tintColor: '#c20c18'} : null}
+            source={require("../../assets/icons/favoriteRestaurant.png")}
+            style={isPressed ? { tintColor: "#c20c18" } : null}
           />
         </FavoriteIconButton>
       </ViewFavorite>
@@ -73,7 +81,7 @@ export function CardRestaurant({name, category, rate, onPress, source}: Props) {
         <TextInfo>{name}</TextInfo>
         <TextCategories>{category}</TextCategories>
         <RateContainer>
-          <ImageRate source={require('../../assets/imageIcons/rateStar.png')} />
+          <ImageRate source={require("../../assets/imageIcons/rateStar.png")} />
           <TextRate>{rate}</TextRate>
         </RateContainer>
       </ViewInfo>

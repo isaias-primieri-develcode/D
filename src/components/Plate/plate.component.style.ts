@@ -1,15 +1,15 @@
-import {RFValue} from 'react-native-responsive-fontsize';
-import styled from 'styled-components/native';
+/* eslint-disable quotes */
+import { RFValue } from "react-native-responsive-fontsize";
+import styled from "styled-components/native";
 
 export const Container = styled.View.attrs({
   elevation: 10,
 })`
   width: 100%;
   height: ${RFValue(108)}px;
-  background-color: ${({theme}) => theme.colors.background};
+  background-color: ${({ theme }) => theme.colors.background};
   margin-top: ${RFValue(18)}px;
   border-radius: 8px;
-
 `;
 
 export const Content = styled.View`
@@ -34,7 +34,7 @@ export const Title = styled.Text`
   font-weight: 500;
   font-size: 14px;
   margin-bottom: ${RFValue(4)}px;
-  color: ${({theme}) => theme.colors.background_red};
+  color: ${({ theme }) => theme.colors.background_red};
 `;
 
 export const Description = styled.Text`
@@ -42,7 +42,7 @@ export const Description = styled.Text`
   margin-bottom: ${RFValue(14)}px;
 
   font-size: 10px;
-  color: ${({theme}) => theme.colors.text_gray};
+  color: ${({ theme }) => theme.colors.text_gray};
 `;
 export const Footer = styled.View`
   width: ${RFValue(182)}px;
@@ -53,11 +53,11 @@ export const Footer = styled.View`
 export const Price = styled.Text`
   font-weight: 700;
   font-size: 12px;
-  color: ${({theme}) => theme.colors.text_dark};
+  color: ${({ theme }) => theme.colors.text_dark};
 `;
 
 export const PlateAdd = styled.Text`
   font-weight: 700;
   font-size: 12px;
-  color: ${({theme}) => theme.colors.background_red};
+  color: ${({ theme }) => theme.colors.background_red};
 `;

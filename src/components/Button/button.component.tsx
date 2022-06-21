@@ -1,12 +1,13 @@
-import {View, TouchableOpacityProps} from 'react-native';
-import React from 'react';
-import {AppButton, Container, Title} from './button.style';
+/* eslint-disable quotes */
+import { View, TouchableOpacityProps } from "react-native";
+import React from "react";
+import { AppButton, Container, Title } from "./button.style";
 
 interface Props extends TouchableOpacityProps {
   title: string;
 }
 
-export function ButtonLogin({title, ...rest}: Props) {
+export function ButtonLogin({ title, ...rest }: Props) {
   return (
     <Container>
       <AppButton {...rest}>

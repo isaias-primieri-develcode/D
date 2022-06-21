@@ -1,4 +1,5 @@
-import React from 'react';
+/* eslint-disable quotes */
+import React from "react";
 import {
   Category,
   DescriptionView,
@@ -6,7 +7,7 @@ import {
   ImageView,
   Profile,
   Title,
-} from './restaurantDescription.component.style';
+} from "./restaurantDescription.component.style";
 
 interface Props {
   source: any;
@@ -14,7 +15,7 @@ interface Props {
   id: string;
 }
 
-export function RestaurantDescription({name, id, source}: Props) {
+export function RestaurantDescription({ name, id, source }: Props) {
   return (
     <Profile>
       <DescriptionView>

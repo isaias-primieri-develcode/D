@@ -1,5 +1,6 @@
-import {RFValue} from 'react-native-responsive-fontsize';
-import styled from 'styled-components/native';
+/* eslint-disable quotes */
+import { RFValue } from "react-native-responsive-fontsize";
+import styled from "styled-components/native";
 
 export const Profile = styled.View`
   width: 100%;
@@ -24,12 +25,12 @@ export const ImageRestaurant = styled.Image`
 
 export const Title = styled.Text`
   font-weight: 400;
-  color: ${({theme}) => theme.colors.text_dark};
+  color: ${({ theme }) => theme.colors.text_dark};
   font-size: 18px;
 `;
 
 export const Category = styled.Text`
   font-size: 12px;
   font-weight: 400;
-  color: ${({theme}) => theme.colors.text_gray};
+  color: ${({ theme }) => theme.colors.text_gray};
 `;

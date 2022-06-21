@@ -61,6 +61,7 @@ export function Plate({name, description, price, source}: Props) {
   }, []);
 
   return (
+    
     <Container>
       <Content>
         <PlatePhoto

@@ -1,26 +1,18 @@
+/* eslint-disable quotes */
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
-import {ScrollView, Text, TouchableOpacity} from 'react-native';
+import React from "react";
+import { ScrollView } from "react-native";
+import { CategoryButton, Title } from "./categories.component.style";
 
 interface Props {
   text: string;
 }
 
-function Category({text}: Props) {
+function Category({ text }: Props) {
   return (
-    <TouchableOpacity
-      activeOpacity={0.9}
-      style={{
-        width: 99,
-        height: 28,
-        borderRadius: 16,
-        backgroundColor: '#C20C18',
-        marginHorizontal: 8,
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}>
-      <Text style={{color: '#eee', fontWeight: 'bold'}}>{text}</Text>
-    </TouchableOpacity>
+    <CategoryButton activeOpacity={0.9}>
+      <Title>{text}</Title>
+    </CategoryButton>
   );
 }
 
@@ -28,9 +20,10 @@ export function Categories() {
   return (
     <ScrollView
       horizontal
-      contentContainerStyle={{paddingHorizontal: 4}}
-      style={{flexDirection: 'row'}}
-      showsHorizontalScrollIndicator={false}>
+      contentContainerStyle={{ paddingHorizontal: 4 }}
+      style={{ flexDirection: "row" }}
+      showsHorizontalScrollIndicator={false}
+    >
       <Category text="Pizza" />
       <Category text="Churrasco" />
       <Category text="Almoço" />

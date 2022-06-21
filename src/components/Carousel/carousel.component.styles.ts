@@ -1,9 +1,10 @@
-import {RFValue} from 'react-native-responsive-fontsize';
-import styled from 'styled-components/native';
+/* eslint-disable quotes */
+import { RFValue } from "react-native-responsive-fontsize";
+import styled from "styled-components/native";
 
 export const Container = styled.View`
   height: ${RFValue(150)}px;
-  background-color: ${({theme}) => theme.colors.background};
+  background-color: ${({ theme }) => theme.colors.background};
 `;
 export const ImageBanner = styled.Image`
   height: ${RFValue(120)}px;
@@ -20,3 +21,8 @@ export const ViewCirclesGroup = styled.View`
   flex-direction: row;
 `;
 export const ImageCircle = styled.Image``;
+
+export const IndicatorView = styled.View`
+  align-items: center;
+  margin-top: 4;
+`;

@@ -1,9 +1,10 @@
-import {RFValue} from 'react-native-responsive-fontsize';
-import styled from 'styled-components/native';
+/* eslint-disable quotes */
+import { RFValue } from "react-native-responsive-fontsize";
+import styled from "styled-components/native";
 
 export const Container = styled.View`
   flex: 1;
-  background-color: ${({theme}) => theme.colors.background};
+  background-color: ${({ theme }) => theme.colors.background};
 `;
 
 export const Favorite = styled.Image``;
@@ -30,22 +31,21 @@ export const NotFoundText = styled.Text`
   font-size: ${RFValue(18)}px;
   font-weight: 400;
   text-align: center;
-  color: ${({theme}) => theme.colors.text_dark};
+  color: ${({ theme }) => theme.colors.text_dark};
 `;
 
 export const Title = styled.Text`
   font-weight: 400;
-  color: ${({theme}) => theme.colors.text_dark};
+  color: ${({ theme }) => theme.colors.text_dark};
   font-size: 18px;
 `;
 
 export const BottomLine = styled.View`
   width: 94%;
   height: 2px;
-  background-color: ${({theme}) => theme.colors.background_gray};
+  background-color: ${({ theme }) => theme.colors.background_gray};
   margin-left: 3%;
   margin-right: 3%;
 `;
 
-export const PlateList = styled.FlatList`
-`;
+export const PlateList = styled.FlatList``;

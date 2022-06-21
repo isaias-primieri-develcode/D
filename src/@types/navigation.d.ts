@@ -5,6 +5,7 @@ export declare global {
       Register1: undefined;
       Login: undefined;
       Home: undefined;
+      Register2: undefined;
     }
   }
 }
