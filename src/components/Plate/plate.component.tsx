@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {TouchableOpacity, View} from 'react-native';
-import { RFValue } from 'react-native-responsive-fontsize';
+import {RFValue} from 'react-native-responsive-fontsize';
 import {useAuth} from '../../contexts/auth';
 import theme from '../../global/theme';
 import api from '../../service/api';

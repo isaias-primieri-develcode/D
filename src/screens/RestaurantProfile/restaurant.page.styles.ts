@@ -23,6 +23,7 @@ export const RestaurantMenu = styled.View`
 
 export const NotFoundView = styled.View`
   justify-content: center;
+  align-items: center;
 `;
 
 export const NotFoundText = styled.Text`
