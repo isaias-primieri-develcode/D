@@ -34,7 +34,6 @@ interface InitialCartList {
   handleAddCart: (item: handleAddCartProps) => void;
   handleRemoveCart: (item: handleAddCartProps) => void;
   handleDeleteCart: (item: handleAddCartProps) => void;
-  handleVerify: (item: handleAddCartProps) => void;
 }
 
 interface handleAddCartProps {
@@ -69,23 +68,10 @@ export function CartProvider({ children }: CartListProps) {
     }
   }
 
-  // function handleVerify(item: handleAddCartProps) {
-  //   restaurantVerify();
-  //   if (restaurantVerification === false) {
-  //     setRestaurantId(item.restaurantId);
-  //     console.log("restaurantId:", restaurantId);
-  //     console.log("item.restaurantId:", item.restaurantId);
-  //   }
-  // }
-
   function handleAddCart(item: handleAddCartProps) {
     restaurantVerify();
     if (restaurantVerification === false) {
       setRestaurantId(item.restaurantId);
-      // console.log("restaurantId:", restaurantId);
-      // console.log("item.restaurantId:", item.restaurantId);
-      // console.log("item1: ", item);
-      // console.log("findItem1", item.findItem);
       if (!item.findItem) {
         setCartItems([
           ...cartItems,
@@ -103,8 +89,6 @@ export function CartProvider({ children }: CartListProps) {
       setCartQuantity(cartQuantity + 1);
       setTotalPrice(totalPrice + item.price);
     } else if (item.restaurantId === restaurantId) {
-      // console.log("item1: ", item);
-      // console.log("findItem1", item.findItem);
       if (!item.findItem) {
         setCartItems([
           ...cartItems,
@@ -124,9 +108,6 @@ export function CartProvider({ children }: CartListProps) {
     } else {
       console.log("Não adicione pratos de restaurantes diferentes");
     }
-    // console.log(cartItems);
-    // console.log("findItem2", item.findItem);
-    // console.log("item2: ", item);
   }
 
   function handleRemoveCart(item: handleAddCartProps) {
@@ -144,12 +125,11 @@ export function CartProvider({ children }: CartListProps) {
     item.findItem.quantity = 0;
     item.findItem.price = item.price * item.findItem.quantity;
     cartItems.splice(cartItems.indexOf(item.findItem), 1);
-    console.log(cartItems);
   }
 
-  useEffect(() => {
-    console.log(cartItems);
-  }, [cartItems]);
+  // useEffect(() => {
+  //   console.log(cartItems);
+  // }, [cartItems]);
 
   return (
     <cartContext.Provider
@@ -161,7 +141,6 @@ export function CartProvider({ children }: CartListProps) {
         cartItems,
         setCartItems,
         cartQuantity,
-        // handleVerify,
         setCartQuantity,
         restaurantVerification,
         restaurantId,

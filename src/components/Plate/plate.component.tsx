@@ -79,9 +79,9 @@ export function Plate({
     FetchPhoto();
   }, []);
 
-  useEffect(() => {
-    console.log(cartItems);
-  }, [cartItems]);
+  // useEffect(() => {
+  //   console.log(cartItems);
+  // }, [cartItems]);
 
   return (
     <Container>

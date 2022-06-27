@@ -10,7 +10,6 @@ import { Categories } from "../../components/categories/categories.component";
 import { SearchRestaurants } from "../../components/SearchRestaurants/searchRestaurants.component";
 import { Load } from "../../components/ViewLoading/viewLoading.component";
 import { useAuth } from "../../contexts/auth";
-import { useCart } from "../../contexts/cart";
 import api from "../../service/api";
 
 import {
@@ -43,7 +42,6 @@ interface RestaurantListProps {
 
 export function Home() {
   const { authState } = useAuth();
-  // const { handleVerify } = useCart();
   const [data, setData] = useState<RestaurantListProps[]>([]);
   const [search, setSearch] = useState({
     page: 0,
@@ -111,7 +109,6 @@ export function Home() {
       food_types,
       photo_url,
     } as never);
-    // handleVerify({restaurantId: id});
   }
 
   const debounced = useDebouncedCallback((value) => {
