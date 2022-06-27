@@ -58,14 +58,10 @@ export function Login() {
         password: data.password,
       };
       if (response.status === 200) {
-        console.log('sim');
-        console.log(signed);
         setAuthState(response.data);
-        console.log(response.data);
         setUser(user);
         setSigned(true);
       } else {
-        console.log('nao');
         console.log(response.status);
       }
     } catch (error) {
@@ -84,7 +80,6 @@ export function Login() {
         validationSchema={loginValidationSchema}
         initialValues={{email: '', password: ''}}
         onSubmit={values => {
-          console.log(values);
           login({
             email: values.email,
             password: values.password,

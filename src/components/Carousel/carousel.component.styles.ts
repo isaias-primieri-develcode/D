@@ -24,5 +24,5 @@ export const ImageCircle = styled.Image``;
 
 export const IndicatorView = styled.View`
   align-items: center;
-  margin-top: 4;
+  margin-top: 4px;
 `;

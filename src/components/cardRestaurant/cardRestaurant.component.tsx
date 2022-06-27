@@ -25,6 +25,7 @@ interface Photo {
 }
 
 interface Props {
+  id: number;
   name: string;
   category: string;
   rate: number;

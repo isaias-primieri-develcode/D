@@ -24,6 +24,16 @@ export const DescriptionView = styled.View`
   margin-left: ${RFValue(16)}px;
 `;
 
+export const ChangeCartView = styled.View`
+  position: absolute;
+  height: ${RFValue(24)}px;
+  width: ${RFValue(64)}px;
+  justify-content: center;
+  align-items: center;
+  right: ${RFValue(-25)}px;
+  bottom: ${RFValue(-8)}px;
+`;
+
 export const PlatePhoto = styled.Image`
   height: ${RFValue(80)}px;
   width: ${RFValue(91)}px;

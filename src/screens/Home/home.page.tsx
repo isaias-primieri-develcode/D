@@ -1,15 +1,17 @@
+/* eslint-disable quotes */
 /* eslint-disable react-hooks/exhaustive-deps */
-import {useNavigation} from '@react-navigation/native';
-import React, {useEffect, useState} from 'react';
-import {StatusBar} from 'react-native';
-import {useDebouncedCallback} from 'use-debounce';
-import {CardRestaurant} from '../../components/cardRestaurant/cardRestaurant.component';
-import {BannerHomeImage} from '../../components/Carousel/carousel.component';
-import {Categories} from '../../components/categories/categories.component';
-import {SearchRestaurants} from '../../components/SearchRestaurants/searchRestaurants.component';
-import {Load} from '../../components/ViewLoading/viewLoading.component';
-import {useAuth} from '../../contexts/auth';
-import api from '../../service/api';
+import { useNavigation } from "@react-navigation/native";
+import React, { useEffect, useState } from "react";
+import { StatusBar } from "react-native";
+import { useDebouncedCallback } from "use-debounce";
+import { CardRestaurant } from "../../components/cardRestaurant/cardRestaurant.component";
+import { BannerHomeImage } from "../../components/Carousel/carousel.component";
+import { Categories } from "../../components/categories/categories.component";
+import { SearchRestaurants } from "../../components/SearchRestaurants/searchRestaurants.component";
+import { Load } from "../../components/ViewLoading/viewLoading.component";
+import { useAuth } from "../../contexts/auth";
+import { useCart } from "../../contexts/cart";
+import api from "../../service/api";
 
 import {
   Container,
@@ -20,7 +22,7 @@ import {
   CardRestaurantView,
   Header,
   ViewLoading,
-} from './home.styles';
+} from "./home.styles";
 
 interface foodTypeProps {
   id: number;
@@ -40,16 +42,16 @@ interface RestaurantListProps {
 }
 
 export function Home() {
-  const {authState} = useAuth();
+  const { authState } = useAuth();
   const [data, setData] = useState<RestaurantListProps[]>([]);
   const [search, setSearch] = useState({
     page: 0,
-    name: '',
+    name: "",
   });
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
   async function fetchData(
-    onSuccess?: (response: RestaurantListProps) => void,
+    onSuccess?: (response: RestaurantListProps) => void
   ) {
     setLoading(true);
     try {
@@ -60,7 +62,7 @@ export function Home() {
             headers: {
               Authorization: `Bearer ${authState.token}`,
             },
-          },
+          }
         )
         .then((response: any) => {
           setData(response.data);
@@ -82,17 +84,17 @@ export function Home() {
 
   async function handleLoadOnEnd(response: RestaurantListProps) {
     if (response.totalPages !== search.page) {
-      setSearch({...search, page: search.page + 1});
+      setSearch({ ...search, page: search.page + 1 });
     }
   }
 
   function handleSearch(value: string) {
     if (value.length > 1) {
       setData([]);
-      setSearch({name: value, page: 0});
+      setSearch({ name: value, page: 0 });
     } else {
       setData([]);
-      setSearch({name: '', page: 0});
+      setSearch({ name: "", page: 0 });
     }
   }
 
@@ -100,9 +102,9 @@ export function Home() {
     id: number,
     name: string,
     food_types: string,
-    photo_url: string,
+    photo_url: string
   ) {
-    navigation.navigate('RestaurantProfile', {
+    navigation.navigate("RestaurantProfile", {
       id,
       name,
       food_types,
@@ -110,7 +112,7 @@ export function Home() {
     } as never);
   }
 
-  const debounced = useDebouncedCallback(value => {
+  const debounced = useDebouncedCallback((value) => {
     handleSearch(value);
   }, 1500);
 
@@ -127,7 +129,7 @@ export function Home() {
           keyExtractor={(item: any) => item.id}
           ListHeaderComponent={
             <>
-              <Header source={require('../../assets/homeImages/header.png')} />
+              <Header source={require("../../assets/homeImages/header.png")} />
               <BannerHomeImage />
               <CategoryTitleWrapper>
                 <CategoryTitle>Categorias</CategoryTitle>
@@ -136,28 +138,31 @@ export function Home() {
               <Content>
                 <SearchRestaurants
                   text="Buscar Restaurantes"
-                  onChangeText={value => debounced(value)}
+                  onChangeText={(value) => debounced(value)}
                 />
               </Content>
             </>
           }
           numColumns={2}
-          renderItem={({item}: any) => (
+          renderItem={({ item }: any) => (
             <CardRestaurantView>
               <CardRestaurant
                 name={item.name}
-                category={item.food_types.length > 0
-                  ? item.food_types[0]?.name.charAt(0).toUpperCase() +
-                    item.food_types[0]?.name.slice(1).toLowerCase()
-                  : ''}
+                id={item.id}
+                category={
+                  item.food_types.length > 0
+                    ? item.food_types[0]?.name.charAt(0).toUpperCase() +
+                      item.food_types[0]?.name.slice(1).toLowerCase()
+                    : ""
+                }
                 rate={4.3}
                 source={item.photo_url}
                 onPress={() =>
                   handleRestaurantProps(
                     item.id,
                     item.name,
-                    item.food_types.length > 0 ? item.food_types[0].name : '',
-                    item.photo_url,
+                    item.food_types.length > 0 ? item.food_types[0].name : "",
+                    item.photo_url
                   )
                 }
               />

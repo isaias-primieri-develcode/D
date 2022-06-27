@@ -1,19 +1,19 @@
-/* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
-import React from 'react';
-import {Button} from 'react-native';
-import {useAuth} from '../../contexts/auth';
+/* eslint-disable quotes */
+import React from "react";
+import { Button } from "react-native";
+import { useAuth } from "../../contexts/auth";
+import { useCart } from "../../contexts/cart";
 
-import {Container, Title} from './favorites.styles';
+import { Container, Title } from "./favorites.styles";
 
 export function Favorites() {
-  const {authState} = useAuth();
+  const { authState } = useAuth();
+  const { cartItems } = useCart();
 
   return (
-    <Container style={{flex: 1}}>
+    <Container>
       <Button title="add" onPress={() => console.log(authState)} />
-
-      <Title>Favorites</Title>
+      <Title>{cartItems}</Title>
     </Container>
   );
 }

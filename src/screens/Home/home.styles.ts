@@ -1,12 +1,11 @@
-import {RFValue} from 'react-native-responsive-fontsize';
-import styled from 'styled-components/native';
-import theme from '../../global/theme';
+/* eslint-disable quotes */
+import { RFValue } from "react-native-responsive-fontsize";
+import styled from "styled-components/native";
+import theme from "../../global/theme";
 
 export const Container = styled.View`
   flex: 1;
   background-color: ${theme.colors.background};
-  justify-content: center;
-  align-items: center;
 `;
 
 export const Header = styled.Image`
@@ -35,14 +34,18 @@ export const Title = styled.Text`
 `;
 
 export const Content = styled.View`
-  margin: 0 ${RFValue(12)}px;
+  width: 100%;
+  padding-left: 5%;
+  padding-right: 5%;
 `;
 
 export const RestaurantList = styled.FlatList``;
 
 export const CardRestaurantView = styled.View`
   flex-grow: 1;
-  margin-left: 14px;
+  width: 50%;
+  align-items: center;
+  /* margin-left: ${RFValue(12)}px; */
 `;
 
 export const ViewLoading = styled.View`

@@ -1,30 +1,42 @@
-/* eslint-disable react/self-closing-comp */
-import React, { useContext } from 'react';
-import { Button } from 'react-native';
-import AuthContext from '../../contexts/auth';
+/* eslint-disable quotes */
+import React, { useContext } from "react";
+import { Image } from "react-native";
+import { SettingItem } from "../../components/SettingItem/settingItem.component";
+import AuthContext from "../../contexts/auth";
+import theme from "../../global/theme";
 
 import {
-  Container, Title,
-} from './profile.styles';
+  Container,
+  EditorImage,
+  EditorText,
+  EditorView,
+  ImageView,
+  ProfileHeader,
+  Title,
+  TitleView,
+  UserImage,
+} from "./profile.styles";
 
 export function Profile() {
-  const { setSigned, logOut } = useContext(AuthContext)
+  // const { Username } =
+  const { setSigned, logOut } = useContext(AuthContext);
 
   return (
+    <Container>
+      <ProfileHeader>
+        <ImageView>
+          <UserImage source={theme.icons.DefaultUser} />
+        </ImageView>
 
-    <Container style={{ flex: 1 }}>
-
-      <Title>
-        Profile
-      </Title>
-      <Button
-        title="deslogar"
-        onPress={() => {
-          setSigned(false)
-          logOut()
-        }}
-      />
-
+        <TitleView>
+          <Title>Seja bem vindo, {"Username"} </Title>
+          <EditorView activeOpacity={0.7}>
+            <EditorText>Editar perfil </EditorText>
+            <EditorImage source={theme.icons.Editor} />
+          </EditorView>
+        </TitleView>
+      </ProfileHeader>
+      <SettingItem name="d" />
     </Container>
-  )
+  );
 }

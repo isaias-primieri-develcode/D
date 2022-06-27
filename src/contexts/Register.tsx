@@ -1,7 +1,5 @@
-/* eslint-disable react/jsx-no-constructed-context-values */
-import React, {
-  createContext, ReactNode, useContext,
-} from 'react';
+/* eslint-disable quotes */
+import React, { createContext, ReactNode, useContext } from "react";
 
 interface RegisterProps {
   children: ReactNode;
@@ -12,30 +10,31 @@ interface RegisterData {
 export const registerContext = createContext({} as RegisterData);
 export function RegisterProvider({ children }: RegisterProps) {
   const body = {
-    email: '',
-    password: '',
-    creationDate: '',
+    email: "",
+    password: "",
+    creationDate: "",
     role: {
       id: 2,
     },
     costumer: {
-      firstName: '',
-      lastName: '',
-      cpf: '',
-      phone: '',
+      firstName: "",
+      lastName: "",
+      cpf: "",
+      phone: "",
       photo: {
-        code: '',
+        code: "",
       },
       address: [
         {
-          street: '',
-          number: '',
-          neighborhood: '',
-          city: '',
-          zipCode: '',
-          state: '',
-          nickname: '',
-        }],
+          street: "",
+          number: "",
+          neighborhood: "",
+          city: "",
+          zipCode: "",
+          state: "",
+          nickname: "",
+        },
+      ],
     },
   };
 

@@ -1,15 +1,12 @@
-import React from 'react';
+/* eslint-disable quotes */
+import React from "react";
 
-import {
-  Container, Title,
-} from './settings.styles';
+import { Container, Title } from "./settings.styles";
 
 export function Settings() {
   return (
     <Container>
-      <Title>
-        settings
-      </Title>
+      <Title>settings</Title>
     </Container>
-  )
+  );
 }
