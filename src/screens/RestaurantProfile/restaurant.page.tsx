@@ -3,7 +3,13 @@
 /* eslint-disable react-native/no-inline-styles */
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, Image, StatusBar, View } from "react-native";
+import {
+  ActivityIndicator,
+  Button,
+  Image,
+  StatusBar,
+  View,
+} from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { useDebouncedCallback } from "use-debounce";
 import { CartComponent } from "../../components/CartComponent/cartComponent.component";
@@ -52,8 +58,13 @@ export function RestaurantProfile({ route }: any) {
   const [photo, setPhoto] = useState<Photo>([]);
   const [data, setData] = useState<PlatesListProps[]>([]);
   const { authState } = useAuth();
-  const { restaurantVerify, cartItems, cartQuantity } = useCart();
-  
+  const {
+    restaurantVerify,
+    cartItems,
+    cartQuantity,
+    restaurantId,
+    // handleVerify,
+  } = useCart();
 
   function FetchPhoto() {
     try {
@@ -118,6 +129,7 @@ export function RestaurantProfile({ route }: any) {
   useEffect(() => {
     loadRestaurants();
     FetchPhoto();
+    // handleVerify({ restaurantId: id });
     console.log(cartItems);
     restaurantVerify();
   }, [search.name]);
@@ -132,6 +144,10 @@ export function RestaurantProfile({ route }: any) {
         Textcolor="#000"
         source={theme.icons.BackIcon}
         onPress={() => navigation.navigate("Home")}
+      />
+      <Button
+        title="console"
+        onPress={() => console.log("restaurantId atual: ", restaurantId)}
       />
       <FavoriteIconButton onPress={() => setIsPressed(!isPressed)}>
         <Favorite
@@ -202,7 +218,6 @@ export function RestaurantProfile({ route }: any) {
         )}
       />
       {cartQuantity !== 0 ? <CartComponent BottomBar={false} /> : null}
-
     </Container>
   );
 }

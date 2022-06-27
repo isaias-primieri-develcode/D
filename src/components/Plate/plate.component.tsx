@@ -1,4 +1,3 @@
-/* eslint-disable no-lone-blocks */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable quotes */
 import React, { useEffect, useState } from "react";
@@ -8,7 +7,6 @@ import { useAuth } from "../../contexts/auth";
 import { useCart } from "../../contexts/cart";
 import theme from "../../global/theme";
 import api from "../../service/api";
-import { CartComponent } from "../CartComponent/cartComponent.component";
 import { ChangeCartQuantity } from "../ChangeCartQuantity/changeCartQuantity.component";
 import {
   ChangeCartView,
@@ -104,38 +102,39 @@ export function Plate({
             <Price>R$ {priceFormatted}</Price>
           </Footer>
           <ChangeCartView>
-            {cartItems.find((item: any) => item.plate.id === id)?.quantity > 0 ? (
+            {cartItems.find((item: any) => item.plate.id === id)?.quantity >
+            0 ? (
               <ChangeCartQuantity
                 quantity={
                   cartItems.find((item: any) => item.plate.id === id)?.quantity
                 }
                 deleteOnPress={() => {
                   handleDeleteCart({
-                    id: id,
-                    price: price,
-                    findItem: findItem,
-                    description: description,
-                    restaurantId: restaurantId,
+                    id,
+                    price,
+                    findItem,
+                    description,
+                    restaurantId,
                   });
                   setEffect(!effect);
                 }}
                 addOnPress={() => {
                   handleAddCart({
-                    id: id,
-                    price: price,
-                    findItem: findItem,
-                    description: description,
-                    restaurantId: restaurantId,
+                    id,
+                    price,
+                    findItem,
+                    description,
+                    restaurantId,
                   });
                   setEffect(!effect);
                 }}
                 removeOnPress={() => {
                   handleRemoveCart({
-                    id: id,
-                    price: price,
-                    findItem: findItem,
-                    description: description,
-                    restaurantId: restaurantId,
+                    id,
+                    price,
+                    findItem,
+                    description,
+                    restaurantId,
                   });
                   setEffect(!effect);
                 }}
@@ -144,11 +143,11 @@ export function Plate({
               <TouchableOpacity
                 onPress={() => {
                   handleAddCart({
-                    id: id,
-                    price: price,
-                    findItem: findItem,
-                    description: description,
-                    restaurantId: restaurantId,
+                    id,
+                    price,
+                    findItem,
+                    description,
+                    restaurantId,
                   });
                   setEffect(!effect);
                 }}

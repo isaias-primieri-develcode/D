@@ -1,10 +1,7 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable quotes */
 import React, {
   createContext,
   ReactNode,
-  useCallback,
   useContext,
   useEffect,
   useState,
@@ -37,6 +34,7 @@ interface InitialCartList {
   handleAddCart: (item: handleAddCartProps) => void;
   handleRemoveCart: (item: handleAddCartProps) => void;
   handleDeleteCart: (item: handleAddCartProps) => void;
+  handleVerify: (item: handleAddCartProps) => void;
 }
 
 interface handleAddCartProps {
@@ -71,13 +69,42 @@ export function CartProvider({ children }: CartListProps) {
     }
   }
 
+  // function handleVerify(item: handleAddCartProps) {
+  //   restaurantVerify();
+  //   if (restaurantVerification === false) {
+  //     setRestaurantId(item.restaurantId);
+  //     console.log("restaurantId:", restaurantId);
+  //     console.log("item.restaurantId:", item.restaurantId);
+  //   }
+  // }
+
   function handleAddCart(item: handleAddCartProps) {
     restaurantVerify();
     if (restaurantVerification === false) {
       setRestaurantId(item.restaurantId);
-      restaurantVerify();
-    }
-    if (item.restaurantId === restaurantId) {
+      // console.log("restaurantId:", restaurantId);
+      // console.log("item.restaurantId:", item.restaurantId);
+      // console.log("item1: ", item);
+      // console.log("findItem1", item.findItem);
+      if (!item.findItem) {
+        setCartItems([
+          ...cartItems,
+          {
+            plate: { id: item.id, price: item.price },
+            quantity: 1,
+            price: item.price,
+            observation: item.description,
+          },
+        ]);
+      } else {
+        item.findItem.quantity += 1;
+        item.findItem.price = item.price * item.findItem.quantity;
+      }
+      setCartQuantity(cartQuantity + 1);
+      setTotalPrice(totalPrice + item.price);
+    } else if (item.restaurantId === restaurantId) {
+      // console.log("item1: ", item);
+      // console.log("findItem1", item.findItem);
       if (!item.findItem) {
         setCartItems([
           ...cartItems,
@@ -97,7 +124,9 @@ export function CartProvider({ children }: CartListProps) {
     } else {
       console.log("Não adicione pratos de restaurantes diferentes");
     }
-    console.log(cartItems);
+    // console.log(cartItems);
+    // console.log("findItem2", item.findItem);
+    // console.log("item2: ", item);
   }
 
   function handleRemoveCart(item: handleAddCartProps) {
@@ -132,6 +161,7 @@ export function CartProvider({ children }: CartListProps) {
         cartItems,
         setCartItems,
         cartQuantity,
+        // handleVerify,
         setCartQuantity,
         restaurantVerification,
         restaurantId,

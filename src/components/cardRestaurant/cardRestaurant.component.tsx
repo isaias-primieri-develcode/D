@@ -3,6 +3,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../contexts/auth";
+import { useCart } from "../../contexts/cart";
 import theme from "../../global/theme";
 import api from "../../service/api";
 import {
@@ -43,6 +44,7 @@ export function CardRestaurant({
   const [isPressed, setIsPressed] = useState(false);
   const [data, setData] = useState<Photo>([]);
   const { authState } = useAuth();
+  const { restaurantVerify } = useCart();
   function FetchData() {
     try {
       api

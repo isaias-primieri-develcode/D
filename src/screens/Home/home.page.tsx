@@ -43,6 +43,7 @@ interface RestaurantListProps {
 
 export function Home() {
   const { authState } = useAuth();
+  // const { handleVerify } = useCart();
   const [data, setData] = useState<RestaurantListProps[]>([]);
   const [search, setSearch] = useState({
     page: 0,
@@ -110,6 +111,7 @@ export function Home() {
       food_types,
       photo_url,
     } as never);
+    // handleVerify({restaurantId: id});
   }
 
   const debounced = useDebouncedCallback((value) => {
