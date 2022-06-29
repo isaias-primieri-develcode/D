@@ -12,16 +12,18 @@ import {
 interface Props {
   source: any;
   name: string;
-  id: string;
+  category: string;
 }
 
-export function RestaurantDescription({ name, id, source }: Props) {
+export function RestaurantDescription({ name, category, source }: Props) {
   return (
     <Profile>
       <DescriptionView>
         <Title>{name}</Title>
         <Category>
-          {id.charAt(0).toUpperCase() + id.slice(1).toLowerCase()}
+          {category
+            ? category.charAt(0).toUpperCase() + category.slice(1).toLowerCase()
+            : "nao carregou"}
         </Category>
       </DescriptionView>
       <ImageView>

@@ -2,19 +2,51 @@
 import { RFValue } from "react-native-responsive-fontsize";
 import styled from "styled-components/native";
 
+interface StyleProps {
+  right: number;
+}
+
 export const Container = styled.View.attrs({
   elevation: 10,
 })`
   width: 100%;
   height: ${RFValue(108)}px;
-  background-color: ${({ theme }) => theme.colors.background};
+  background-color: ${({ theme }) => theme.colors.red};
   margin-top: ${RFValue(18)}px;
+  border-radius: 8px;
+`;
+
+export const DeleteView = styled.TouchableOpacity`
+  height: 100%;
+  width: ${RFValue(98)}px;
+  background-color: ${({ theme }) => theme.colors.red};
+  border-radius: 8px;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const DeleteText = styled.Text`
+  font-size: 12px;
+  color: ${({ theme }) => theme.colors.text_white};
+`;
+
+export const DeleteImage = styled.Image`
+  tint-color: ${({ theme }) => theme.colors.text_white};
+  width: ${RFValue(14)}px;
+  height: ${RFValue(16)}px;
+`;
+
+export const ContentContainer = styled.View`
+  width: 100%;
+  height: ${RFValue(108)}px;
+  background-color: ${({ theme }) => theme.colors.background};
   border-radius: 8px;
 `;
 
 export const Content = styled.View`
   flex-direction: row;
   margin-top: ${RFValue(14)}px;
+  background-color: ${({ theme }) => theme.colors.background};
   margin-left: ${RFValue(6)}px;
 `;
 
@@ -30,7 +62,7 @@ export const ChangeCartView = styled.View`
   width: ${RFValue(64)}px;
   justify-content: center;
   align-items: center;
-  right: ${RFValue(-25)}px;
+  right: ${(props: StyleProps) => (props.right ? props.right : 0)}px;
   bottom: ${RFValue(-8)}px;
 `;
 

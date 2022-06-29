@@ -1,10 +1,27 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable quotes */
 import React, { useEffect, useState } from "react";
-import { TouchableOpacity, View } from "react-native";
+import { AppRegistry, Image, Text, TouchableOpacity, View } from "react-native";
+import {
+  gestureHandlerRootHOC,
+  PanGestureHandler,
+  PanGestureHandlerGestureEvent,
+} from "react-native-gesture-handler";
+import Animated, {
+  useAnimatedGestureHandler,
+  useAnimatedStyle,
+  useSharedValue,
+} from "react-native-reanimated";
 import { RFValue } from "react-native-responsive-fontsize";
+import {
+  GestureHandlerRootView,
+  Swipeable,
+} from "react-native-gesture-handler";
+import App from "../../../App";
 import { useAuth } from "../../contexts/auth";
 import { useCart } from "../../contexts/cart";
+import "react-native-gesture-handler";
+import { name as appName } from "../../../app.json";
 import theme from "../../global/theme";
 import api from "../../service/api";
 import { ChangeCartQuantity } from "../ChangeCartQuantity/changeCartQuantity.component";
@@ -12,6 +29,10 @@ import {
   ChangeCartView,
   Container,
   Content,
+  ContentContainer,
+  DeleteImage,
+  DeleteText,
+  DeleteView,
   Description,
   DescriptionView,
   Footer,
@@ -21,6 +42,7 @@ import {
   Title,
 } from "./plate.component.style";
 
+AppRegistry.registerComponent(appName, () => gestureHandlerRootHOC(App));
 interface Photo {
   id: number;
   code: string;
@@ -33,6 +55,12 @@ interface Props {
   source: any;
   id: number;
   restaurantId: number;
+  food_types: string;
+  restaurantName: string;
+  photo_url: string;
+  platePhoto: any;
+  right: boolean;
+  swipeDelete: boolean;
 }
 
 export function Plate({
@@ -42,15 +70,52 @@ export function Plate({
   source,
   id,
   restaurantId,
+  photo_url,
+  restaurantName,
+  food_types,
+  right,
+  platePhoto,
+  swipeDelete,
 }: Props) {
   const { authState } = useAuth();
-  const { cartItems, handleAddCart, handleDeleteCart, handleRemoveCart } =
-    useCart();
+  const {
+    cartItems,
+    handleAddCart,
+    handleDeleteCart,
+    handleRemoveCart,
+    handleAddNewCart,
+  } = useCart();
   const [photo, setPhoto] = useState<Photo>([]);
 
   const [effect, setEffect] = useState(false);
 
   const findItem = cartItems.find((item: any) => item.plate.id === id);
+
+  const RenderRight = () => {
+    return (
+      <DeleteView
+        activeOpacity={1}
+        onPress={() => {
+          handleDeleteCart({
+            id,
+            price,
+            findItem,
+            description,
+            restaurantId,
+            plateName: name,
+            name: restaurantName,
+            photo_url: photo,
+            food_types: food_types,
+            photo: photo,
+          });
+          setEffect(!effect);
+        }}
+      >
+        <DeleteImage source={theme.icons.Delete} />
+        <DeleteText>Remover</DeleteText>
+      </DeleteView>
+    );
+  };
 
   function FetchPhoto() {
     try {
@@ -77,87 +142,213 @@ export function Plate({
 
   useEffect(() => {
     FetchPhoto();
-  }, []);
-
-  // useEffect(() => {
-  //   console.log(cartItems);
-  // }, [cartItems]);
+  }, [source]);
 
   return (
-    <Container>
-      <Content>
-        <PlatePhoto
-          source={
-            photo.code
-              ? { uri: `${photo.code}` }
-              : theme.icons.DefaultRestaurant
-          }
-        />
-        <DescriptionView>
-          <View style={{ width: RFValue(171) }}>
-            <Title>{name}</Title>
-            <Description>{description}</Description>
-          </View>
-          <Footer>
-            <Price>R$ {priceFormatted}</Price>
-          </Footer>
-          <ChangeCartView>
-            {cartItems.find((item: any) => item.plate.id === id)?.quantity >
-            0 ? (
-              <ChangeCartQuantity
-                quantity={
-                  cartItems.find((item: any) => item.plate.id === id)?.quantity
+    <>
+      {swipeDelete ? (
+        <Container>
+          <GestureHandlerRootView>
+            <Swipeable renderLeftActions={RenderRight}>
+              <ContentContainer>
+                <Content>
+                  <PlatePhoto
+                    source={
+                      photo.code
+                        ? { uri: `${photo.code}` }
+                        : theme.icons.DefaultRestaurant
+                    }
+                  />
+                  <DescriptionView>
+                    <View style={{ width: RFValue(171) }}>
+                      <Title>{name}</Title>
+                      <Description>{description}</Description>
+                    </View>
+                    <Footer>
+                      <Price>R$ {priceFormatted}</Price>
+                    </Footer>
+                    <ChangeCartView right={right ? RFValue(-25) : RFValue(0)}>
+                      {cartItems.find((item: any) => item.plate.id === id)
+                        ?.quantity > 0 ? (
+                        <ChangeCartQuantity
+                          quantity={
+                            cartItems.find((item: any) => item.plate.id === id)
+                              ?.quantity
+                          }
+                          deleteOnPress={() => {
+                            handleDeleteCart({
+                              id,
+                              price,
+                              findItem,
+                              description,
+                              restaurantId,
+                              plateName: name,
+                              name: restaurantName,
+                              photo_url: photo,
+                              food_types: food_types,
+                              photo: photo,
+                            });
+                            setEffect(!effect);
+                          }}
+                          addOnPress={() => {
+                            handleAddCart({
+                              id,
+                              price,
+                              findItem,
+                              description,
+                              restaurantId,
+                              plateName: name,
+                              name: restaurantName,
+                              photo_url: photo_url,
+                              food_types: food_types,
+                              photo: photo,
+                            });
+                            setEffect(!effect);
+                          }}
+                          removeOnPress={() => {
+                            handleRemoveCart({
+                              id,
+                              price,
+                              findItem,
+                              description,
+                              restaurantId,
+                              plateName: name,
+                              name: restaurantName,
+                              photo_url: photo_url,
+                              food_types: food_types,
+                              photo: platePhoto,
+                            });
+                            setEffect(!effect);
+                          }}
+                        />
+                      ) : (
+                        <TouchableOpacity
+                          onPress={() => {
+                            handleAddNewCart({
+                              id,
+                              price,
+                              findItem,
+                              description,
+                              restaurantId,
+                              plateName: name,
+                              name: restaurantName,
+                              photo_url: photo_url,
+                              food_types: food_types,
+                              photo: platePhoto,
+                            });
+                            setEffect(!effect);
+                          }}
+                        >
+                          <PlateAdd>Adicionar</PlateAdd>
+                        </TouchableOpacity>
+                      )}
+                    </ChangeCartView>
+                  </DescriptionView>
+                </Content>
+              </ContentContainer>
+            </Swipeable>
+          </GestureHandlerRootView>
+        </Container>
+      ) : (
+        <Container>
+          <ContentContainer>
+            <Content>
+              <PlatePhoto
+                source={
+                  photo.code
+                    ? { uri: `${photo.code}` }
+                    : theme.icons.DefaultRestaurant
                 }
-                deleteOnPress={() => {
-                  handleDeleteCart({
-                    id,
-                    price,
-                    findItem,
-                    description,
-                    restaurantId,
-                  });
-                  setEffect(!effect);
-                }}
-                addOnPress={() => {
-                  handleAddCart({
-                    id,
-                    price,
-                    findItem,
-                    description,
-                    restaurantId,
-                  });
-                  setEffect(!effect);
-                }}
-                removeOnPress={() => {
-                  handleRemoveCart({
-                    id,
-                    price,
-                    findItem,
-                    description,
-                    restaurantId,
-                  });
-                  setEffect(!effect);
-                }}
               />
-            ) : (
-              <TouchableOpacity
-                onPress={() => {
-                  handleAddCart({
-                    id,
-                    price,
-                    findItem,
-                    description,
-                    restaurantId,
-                  });
-                  setEffect(!effect);
-                }}
-              >
-                <PlateAdd>Adicionar</PlateAdd>
-              </TouchableOpacity>
-            )}
-          </ChangeCartView>
-        </DescriptionView>
-      </Content>
-    </Container>
+              <DescriptionView>
+                <View style={{ width: RFValue(171) }}>
+                  <Title>{name}</Title>
+                  <Description>{description}</Description>
+                </View>
+                <Footer>
+                  <Price>R$ {priceFormatted}</Price>
+                </Footer>
+                <ChangeCartView right={right ? RFValue(-25) : RFValue(0)}>
+                  {cartItems.find((item: any) => item.plate.id === id)
+                    ?.quantity > 0 ? (
+                    <ChangeCartQuantity
+                      quantity={
+                        cartItems.find((item: any) => item.plate.id === id)
+                          ?.quantity
+                      }
+                      deleteOnPress={() => {
+                        handleDeleteCart({
+                          id,
+                          price,
+                          findItem,
+                          description,
+                          restaurantId,
+                          plateName: name,
+                          name: restaurantName,
+                          photo_url: photo,
+                          food_types: food_types,
+                          photo: photo,
+                        });
+                        setEffect(!effect);
+                      }}
+                      addOnPress={() => {
+                        handleAddCart({
+                          id,
+                          price,
+                          findItem,
+                          description,
+                          restaurantId,
+                          plateName: name,
+                          name: restaurantName,
+                          photo_url: photo_url,
+                          food_types: food_types,
+                          photo: photo,
+                        });
+                        setEffect(!effect);
+                      }}
+                      removeOnPress={() => {
+                        handleRemoveCart({
+                          id,
+                          price,
+                          findItem,
+                          description,
+                          restaurantId,
+                          plateName: name,
+                          name: restaurantName,
+                          photo_url: photo_url,
+                          food_types: food_types,
+                          photo: platePhoto,
+                        });
+                        setEffect(!effect);
+                      }}
+                    />
+                  ) : (
+                    <TouchableOpacity
+                      onPress={() => {
+                        handleAddNewCart({
+                          id,
+                          price,
+                          findItem,
+                          description,
+                          restaurantId,
+                          plateName: name,
+                          name: restaurantName,
+                          photo_url: photo_url,
+                          food_types: food_types,
+                          photo: platePhoto,
+                        });
+                        setEffect(!effect);
+                      }}
+                    >
+                      <PlateAdd>Adicionar</PlateAdd>
+                    </TouchableOpacity>
+                  )}
+                </ChangeCartView>
+              </DescriptionView>
+            </Content>
+          </ContentContainer>
+        </Container>
+      )}
+    </>
   );
 }

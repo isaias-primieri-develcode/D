@@ -37,8 +37,6 @@ interface PlatesListProps {
   name: string;
   description: string;
   price: string;
-  // foodType: foodTypeProps;
-  // restaurantName: string;
   photo_url: string;
 }
 
@@ -53,6 +51,7 @@ export function RestaurantProfile({ route }: any) {
   const [data, setData] = useState<PlatesListProps[]>([]);
   const { authState } = useAuth();
   const { restaurantVerify, cartQuantity } = useCart();
+  // const findItem = cartItems.find((item: any) => item.plate.id === id);
 
   function FetchPhoto() {
     try {
@@ -138,7 +137,7 @@ export function RestaurantProfile({ route }: any) {
         />
       </FavoriteIconButton>
       <RestaurantDescription
-        id={food_types}
+        category={food_types}
         name={name}
         source={
           photo.code ? { uri: `${photo.code}` } : theme.icons.DefaultRestaurant
@@ -189,6 +188,12 @@ export function RestaurantProfile({ route }: any) {
             }}
           >
             <Plate
+              swipeDelete={false}
+              restaurantName={name}
+              right
+              platePhoto={item.photo_url}
+              food_types={food_types}
+              photo_url={photo_url}
               restaurantId={id}
               id={item.id}
               source={item.photo_url}

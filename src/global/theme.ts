@@ -24,6 +24,8 @@ export default {
     icon_red: "#C20C18",
     icon_dark: "#2B2B2E",
 
+    red: "#f60C18",
+
     input_focus: "#68484A",
     border_color: "#bfbaba",
   },
@@ -47,6 +49,10 @@ export default {
     Delete: require("../assets/imageIcons/delete.png"),
     Remove: require("../assets/imageIcons/remove.png"),
     Cart: require("../assets/imageIcons/cart.png"),
+    Map: require("../assets/images/map.png"),
+    Arrow: require("../assets/imageIcons/arrow.png"),
+    Close: require("../assets/imageIcons/close.png"),
+    Money: require("../assets/imageIcons/money.png"),
   },
 
   images: {

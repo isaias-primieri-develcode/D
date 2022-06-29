@@ -6,6 +6,7 @@ export declare global {
       Login: undefined;
       Home: undefined;
       Register2: undefined;
+      Cart: undefined;
     }
   }
 }

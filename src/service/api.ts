@@ -1,7 +1,8 @@
-import axios from 'axios';
+/* eslint-disable quotes */
+import axios from "axios";
 
 const api = axios.create({
-  baseURL: 'https://develfood-3.herokuapp.com',
+  baseURL: "https://develfood-3.herokuapp.com",
 });
 
 export default api;

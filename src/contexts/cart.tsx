@@ -11,22 +11,35 @@ interface CartListProps {
   children: ReactNode;
 }
 
-interface CartItemProps {
-  plate: object;
-  quantity: number;
-  observation: string;
+interface PlateProps {
+  id: number;
   price: number;
 }
 
+interface CartItemProps {
+  plate: PlateProps;
+  quantity: number;
+  observation: string;
+  price: number;
+  photo: any;
+  name: string;
+}
+interface RestaurantProps {
+  food_types: string;
+  name: string;
+  photo_url: string;
+}
 interface InitialCartList {
-  cartItems: any[];
-  setCartItems: (cartItems: any[]) => void;
+  cartItems: CartItemProps[];
+  setCartItems: (cartItems: CartItemProps[]) => void;
   restaurantId: number;
   setRestaurantId: (restaurantId: number) => void;
   id: number;
   setId: (id: number) => void;
   cartQuantity: number;
   setCartQuantity: (cartQuantity: number) => void;
+  restaurant: RestaurantProps;
+  setRestaurant: (Restaurant: RestaurantProps) => void;
   totalPrice: number;
   setTotalPrice: (totalPrice: number) => void;
   restaurantVerification: boolean;
@@ -34,6 +47,8 @@ interface InitialCartList {
   handleAddCart: (item: handleAddCartProps) => void;
   handleRemoveCart: (item: handleAddCartProps) => void;
   handleDeleteCart: (item: handleAddCartProps) => void;
+  handleAddNewCart: (item: handleAddCartProps) => void;
+  handleDeleteAllCart: () => void;
 }
 
 interface handleAddCartProps {
@@ -42,6 +57,11 @@ interface handleAddCartProps {
   price: number;
   findItem: CartItemProps;
   description: string;
+  plateName: string;
+  name: string;
+  food_types: string;
+  photo_url: string;
+  photo: string;
 }
 
 export const cartContext = createContext({} as InitialCartList);
@@ -50,6 +70,7 @@ export function CartProvider({ children }: CartListProps) {
   const [id, setId] = useState(0);
   const [restaurantId, setRestaurantId] = useState(0);
   const [cartQuantity, setCartQuantity] = useState(0);
+  const [restaurant, setRestaurant] = useState<RestaurantProps>();
   const [totalPrice, setTotalPrice] = useState(0);
   const [restaurantVerification, setRestaurantVerification] = useState(false);
 
@@ -68,41 +89,51 @@ export function CartProvider({ children }: CartListProps) {
     }
   }
 
-  function handleAddCart(item: handleAddCartProps) {
+  function handleAddNewCart(item: handleAddCartProps) {
     restaurantVerify();
     if (restaurantVerification === false) {
       setRestaurantId(item.restaurantId);
-      if (!item.findItem) {
-        setCartItems([
-          ...cartItems,
-          {
-            plate: { id: item.id, price: item.price },
-            quantity: 1,
-            price: item.price,
-            observation: item.description,
-          },
-        ]);
-      } else {
-        item.findItem.quantity += 1;
-        item.findItem.price = item.price * item.findItem.quantity;
-      }
+      setRestaurant({
+        food_types: item.food_types,
+        name: item.name,
+        photo_url: item.photo_url,
+      });
+      setCartItems([
+        ...cartItems,
+        {
+          plate: { id: item.id, price: item.price },
+          quantity: 1,
+          price: item.price,
+          observation: item.description,
+          photo: item.photo,
+          name: item.plateName,
+        },
+      ]);
       setCartQuantity(cartQuantity + 1);
       setTotalPrice(totalPrice + item.price);
     } else if (item.restaurantId === restaurantId) {
-      if (!item.findItem) {
-        setCartItems([
-          ...cartItems,
-          {
-            plate: { id: item.id, price: item.price },
-            quantity: 1,
-            price: item.price,
-            observation: item.description,
-          },
-        ]);
-      } else {
-        item.findItem.quantity += 1;
-        item.findItem.price = item.price * item.findItem.quantity;
-      }
+      setCartItems([
+        ...cartItems,
+        {
+          plate: { id: item.id, price: item.price },
+          quantity: 1,
+          price: item.price,
+          observation: item.description,
+          photo: item.photo,
+          name: item.plateName,
+        },
+      ]);
+      setCartQuantity(cartQuantity + 1);
+      setTotalPrice(totalPrice + item.price);
+    } else {
+      console.log("Não adicione pratos de restaurantes diferentes");
+    }
+  }
+
+  function handleAddCart(item: handleAddCartProps) {
+    if (item.findItem) {
+      item.findItem.quantity += 1;
+      item.findItem.price = item.price * item.findItem.quantity;
       setCartQuantity(cartQuantity + 1);
       setTotalPrice(totalPrice + item.price);
     } else {
@@ -127,15 +158,25 @@ export function CartProvider({ children }: CartListProps) {
     cartItems.splice(cartItems.indexOf(item.findItem), 1);
   }
 
-  // useEffect(() => {
-  //   console.log(cartItems);
-  // }, [cartItems]);
+  function handleDeleteAllCart() {
+    cartItems.splice(0);
+    setCartQuantity(0);
+    setTotalPrice(0);
+    setRestaurantId(0);
+    setRestaurantVerification(false);
+  }
+
+  useEffect(() => {
+    console.log(cartItems);
+  }, [cartItems]);
 
   return (
     <cartContext.Provider
       value={{
         id,
         setId,
+        restaurant,
+        setRestaurant,
         totalPrice,
         setTotalPrice,
         cartItems,
@@ -149,6 +190,8 @@ export function CartProvider({ children }: CartListProps) {
         handleAddCart,
         handleDeleteCart,
         handleRemoveCart,
+        handleAddNewCart,
+        handleDeleteAllCart,
       }}
     >
       {children}
