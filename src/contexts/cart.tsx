@@ -46,6 +46,8 @@ interface InitialCartList {
   setCostumerId: (costumerId: number) => void;
   restaurantVerification: boolean;
   restaurantVerify: () => void;
+  reloadHistoric: boolean;
+  setReloadHistoric: (reloadHistoric: boolean) => void;
   handleAddCart: (item: handleAddCartProps) => void;
   handleRemoveCart: (item: handleAddCartProps) => void;
   handleDeleteCart: (item: handleAddCartProps) => void;
@@ -70,6 +72,7 @@ export const cartContext = createContext({} as InitialCartList);
 export function CartProvider({ children }: CartListProps) {
   const [cartItems, setCartItems] = useState<CartItemProps[]>([]);
   const [id, setId] = useState(0);
+  const [reloadHistoric, setReloadHistoric] = useState(false);
   const [restaurantId, setRestaurantId] = useState(0);
   const [cartQuantity, setCartQuantity] = useState(0);
   const [restaurant, setRestaurant] = useState<RestaurantProps>();
@@ -180,6 +183,8 @@ export function CartProvider({ children }: CartListProps) {
         setId,
         restaurant,
         setRestaurant,
+        reloadHistoric,
+        setReloadHistoric,
         totalPrice,
         setTotalPrice,
         cartItems,

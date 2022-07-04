@@ -1,9 +1,12 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable quotes */
 import { useFocusEffect } from "@react-navigation/native";
 import moment from "moment";
 import "moment/locale/pt-br";
 import React, { useCallback, useEffect, useState } from "react";
 import { SectionList } from "react-native";
+import { RFValue } from "react-native-responsive-fontsize";
+import { ButtonLogin } from "../../components/Button/button.component";
 import { Header } from "../../components/Headers/header.component";
 import { HistoricComponent } from "../../components/HistoricComponent/historic.component";
 import { Load } from "../../components/ViewLoading/viewLoading.component";
@@ -72,6 +75,7 @@ export function Historic() {
   const [data, setData] = useState<DataProps[]>([]);
   const { authState } = useAuth();
   const [page, setPage] = useState(0);
+  const [effect, setEffect] = useState(false);
   const [loading, setLoading] = useState(false);
   const [historicSections, setHistoricSections] = useState<SectionListData[]>(
     []
@@ -156,9 +160,9 @@ export function Historic() {
     setPage(page + 1);
   }
 
-  useEffect(() => {
-    (async () => await fetchData(onSucces))();
-  }, []);
+  // useEffect(() => {
+  //   (async () => await fetchData(onSucces))();
+  // }, []);
 
   useFocusEffect(
     useCallback(() => {
@@ -167,7 +171,7 @@ export function Historic() {
   );
 
   useEffect(() => {
-    data && sectionDataFormatter([...data, ...data]);
+    data && sectionDataFormatter([...data]);
   }, [data]);
 
   useEffect(() => {
@@ -180,11 +184,11 @@ export function Historic() {
         ListHeaderComponent={() => (
           <>
             <Header
-              name="Histórico"
+              name="Meus pedidos"
               color={theme.colors.background_red}
               Textcolor={theme.colors.text_white}
             />
-            <TitleView>
+            <TitleView style={{ marginTop: RFValue(25) }}>
               <Title>Histórico</Title>
             </TitleView>
           </>

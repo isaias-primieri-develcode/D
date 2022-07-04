@@ -15,7 +15,7 @@ export const Title = styled.Text`
 
 export const TitleView = styled.View`
   margin-left: ${RFValue(16)}px;
-  margin-top: ${RFValue(25)}px;
+  /* margin-top: ${RFValue(25)}px; */
 `;
 
 export const DateText = styled.Text`

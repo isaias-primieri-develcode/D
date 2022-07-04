@@ -27,7 +27,8 @@ export function FinishCart({ BottomBar }: Props) {
     cartItems,
     restaurantId,
     handleDeleteAllCart,
-    setCostumerId,
+    setReloadHistoric,
+    reloadHistoric,
   } = useCart();
   const { authState } = useAuth();
   const navigation = useNavigation();
@@ -68,6 +69,7 @@ export function FinishCart({ BottomBar }: Props) {
         console.log(response.data);
         console.log( "id costumer: " ,costumerIdData.data.id);
         handleDeleteAllCart();
+        setReloadHistoric(!reloadHistoric)
         navigation.navigate("OrderComplete");
       })
       .catch((error) => {
