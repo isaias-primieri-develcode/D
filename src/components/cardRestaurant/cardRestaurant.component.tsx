@@ -44,7 +44,6 @@ export function CardRestaurant({
   const [isPressed, setIsPressed] = useState(false);
   const [data, setData] = useState<Photo>([]);
   const { authState } = useAuth();
-  const { restaurantVerify } = useCart();
   function FetchData() {
     try {
       api

@@ -122,7 +122,7 @@ export function Home() {
   return (
     <>
       <Container>
-        <StatusBar barStyle="dark-content" backgroundColor="#c20c18" />
+        <StatusBar barStyle="light-content" backgroundColor="#c20c18" />
         <RestaurantList
           data={data}
           keyExtractor={(item: any) => item.id}

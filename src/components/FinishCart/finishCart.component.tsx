@@ -1,6 +1,7 @@
 /* eslint-disable quotes */
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
+import { Alert } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { useAuth } from "../../contexts/auth";
 import { useCart } from "../../contexts/cart";
@@ -21,8 +22,13 @@ interface Props {
 }
 
 export function FinishCart({ BottomBar }: Props) {
-  const { totalPrice, cartItems, restaurantId, handleDeleteAllCart } =
-    useCart();
+  const {
+    totalPrice,
+    cartItems,
+    restaurantId,
+    handleDeleteAllCart,
+    setCostumerId,
+  } = useCart();
   const { authState } = useAuth();
   const navigation = useNavigation();
   function priceConverter() {
@@ -43,9 +49,9 @@ export function FinishCart({ BottomBar }: Props) {
         "/request",
         {
           costumer: { id: costumerIdData.data.id },
-          restaurant: { restaurantId },
-          date: "2022-05-10 14:40:22",
-          dateLastUpdated: "2022-05-10 14:40:22",
+          restaurant: { id: restaurantId },
+          date: new Date().toString,
+          dateLastUpdated: new Date().toString,
           totalValue: totalPrice,
           paymentType: "card",
           status: "PEDIDO_REALIZADO",
@@ -59,13 +65,15 @@ export function FinishCart({ BottomBar }: Props) {
         }
       )
       .then((response) => {
-        console.log(response);
+        console.log(response.data);
+        console.log( "id costumer: " ,costumerIdData.data.id);
+        handleDeleteAllCart();
+        navigation.navigate("OrderComplete");
       })
       .catch((error) => {
         console.log(error);
+        Alert.alert("erro", "Erro ao realizar pedido");
       });
-    handleDeleteAllCart();
-    navigation.navigate("Home");
   }
 
   return (

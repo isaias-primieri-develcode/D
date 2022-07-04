@@ -19,11 +19,11 @@ export default function App() {
       <StatusBar barStyle={"light-content"} backgroundColor="#c20c18" />
       <AuthProvider>
         <RegisterProvider>
-            <ThemeProvider theme={theme}>
-              <NavigationContainer>
-                <AllRoutes />
-              </NavigationContainer>
-            </ThemeProvider>
+          <ThemeProvider theme={theme}>
+            <NavigationContainer>
+              <AllRoutes />
+            </NavigationContainer>
+          </ThemeProvider>
         </RegisterProvider>
       </AuthProvider>
     </>

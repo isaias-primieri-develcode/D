@@ -42,6 +42,8 @@ interface InitialCartList {
   setRestaurant: (Restaurant: RestaurantProps) => void;
   totalPrice: number;
   setTotalPrice: (totalPrice: number) => void;
+  costumerId: number;
+  setCostumerId: (costumerId: number) => void;
   restaurantVerification: boolean;
   restaurantVerify: () => void;
   handleAddCart: (item: handleAddCartProps) => void;
@@ -72,6 +74,7 @@ export function CartProvider({ children }: CartListProps) {
   const [cartQuantity, setCartQuantity] = useState(0);
   const [restaurant, setRestaurant] = useState<RestaurantProps>();
   const [totalPrice, setTotalPrice] = useState(0);
+  const [costumerId, setCostumerId] = useState(0);
   const [restaurantVerification, setRestaurantVerification] = useState(false);
 
   function restaurantVerify() {
@@ -186,6 +189,8 @@ export function CartProvider({ children }: CartListProps) {
         restaurantVerification,
         restaurantId,
         setRestaurantId,
+        costumerId,
+        setCostumerId,
         restaurantVerify,
         handleAddCart,
         handleDeleteCart,

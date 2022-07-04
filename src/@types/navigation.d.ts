@@ -7,6 +7,9 @@ export declare global {
       Home: undefined;
       Register2: undefined;
       Cart: undefined;
+      OrderComplete: undefined;
+      Favorites: undefined;
+      Historic: undefined;
     }
   }
 }

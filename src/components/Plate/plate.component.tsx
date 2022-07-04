@@ -1,17 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable quotes */
 import React, { useEffect, useState } from "react";
-import { AppRegistry, Image, Text, TouchableOpacity, View } from "react-native";
-import {
-  gestureHandlerRootHOC,
-  PanGestureHandler,
-  PanGestureHandlerGestureEvent,
-} from "react-native-gesture-handler";
-import Animated, {
-  useAnimatedGestureHandler,
-  useAnimatedStyle,
-  useSharedValue,
-} from "react-native-reanimated";
+import { AppRegistry, TouchableOpacity, View } from "react-native";
+import { gestureHandlerRootHOC } from "react-native-gesture-handler";
+
 import { RFValue } from "react-native-responsive-fontsize";
 import {
   GestureHandlerRootView,
@@ -89,6 +81,8 @@ export function Plate({
 
   const [effect, setEffect] = useState(false);
 
+  const [swipeWidth, setSwipeWidth] = useState("90%");
+
   const findItem = cartItems.find((item: any) => item.plate.id === id);
 
   const RenderRight = () => {
@@ -147,9 +141,17 @@ export function Plate({
   return (
     <>
       {swipeDelete ? (
-        <Container>
+        <Container style={{ width: swipeWidth }}>
           <GestureHandlerRootView>
-            <Swipeable renderLeftActions={RenderRight}>
+            <Swipeable
+              renderLeftActions={RenderRight}
+              onSwipeableWillClose={() => {
+                setSwipeWidth("90%");
+              }}
+              onSwipeableWillOpen={() => {
+                setSwipeWidth("100%");
+              }}
+            >
               <ContentContainer>
                 <Content>
                   <PlatePhoto
@@ -184,9 +186,9 @@ export function Plate({
                               restaurantId,
                               plateName: name,
                               name: restaurantName,
-                              photo_url: photo,
+                              photo_url: photo_url,
                               food_types: food_types,
-                              photo: photo,
+                              photo: platePhoto,
                             });
                             setEffect(!effect);
                           }}
@@ -201,7 +203,7 @@ export function Plate({
                               name: restaurantName,
                               photo_url: photo_url,
                               food_types: food_types,
-                              photo: photo,
+                              photo: platePhoto,
                             });
                             setEffect(!effect);
                           }}

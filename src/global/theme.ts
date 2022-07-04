@@ -53,6 +53,9 @@ export default {
     Arrow: require("../assets/imageIcons/arrow.png"),
     Close: require("../assets/imageIcons/close.png"),
     Money: require("../assets/imageIcons/money.png"),
+    OrderComplete: require("../assets/images/orderComplete.png"),
+    CartNotFound: require("../assets/images/cartNotFound.png"),
+    Check: require("../assets/imageIcons/check.png"),
   },
 
   images: {
