@@ -1,12 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable quotes */
 import { useFocusEffect } from "@react-navigation/native";
 import moment from "moment";
 import "moment/locale/pt-br";
 import React, { useCallback, useEffect, useState } from "react";
-import { SectionList } from "react-native";
+import { Image, SectionList, Text, View } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
-import { ButtonLogin } from "../../components/Button/button.component";
 import { Header } from "../../components/Headers/header.component";
 import { HistoricComponent } from "../../components/HistoricComponent/historic.component";
 import { Load } from "../../components/ViewLoading/viewLoading.component";
@@ -75,7 +75,6 @@ export function Historic() {
   const [data, setData] = useState<DataProps[]>([]);
   const { authState } = useAuth();
   const [page, setPage] = useState(0);
-  const [effect, setEffect] = useState(false);
   const [loading, setLoading] = useState(false);
   const [historicSections, setHistoricSections] = useState<SectionListData[]>(
     []
@@ -135,13 +134,11 @@ export function Historic() {
       );
       if (sectionFound) {
         sectionFound.data.push(order);
-        console.log("sectionFound");
       } else {
         historicFormatted.push({
           title: order.date,
           data: [order],
         });
-        console.log("sectionNotFound");
       }
     });
     setHistoricSections(historicFormatted);
@@ -149,7 +146,6 @@ export function Historic() {
 
   function onSucces(response: OrderListProps) {
     setData([...data, ...response.content]);
-    // console.log(response.content);
   }
 
   async function loadRestaurants() {
@@ -159,10 +155,6 @@ export function Historic() {
   async function handleLoadOnEnd() {
     setPage(page + 1);
   }
-
-  // useEffect(() => {
-  //   (async () => await fetchData(onSucces))();
-  // }, []);
 
   useFocusEffect(
     useCallback(() => {
@@ -181,6 +173,21 @@ export function Historic() {
   return (
     <Container>
       <SectionList
+        data={data}
+        ListEmptyComponent={() => (
+          <View style={{ alignItems: "center" }}>
+            <Image source={theme.icons.OrderNotFound} />
+            <Text
+              style={{
+                fontSize: 18,
+                color: theme.colors.text_dark,
+                marginTop: -20,
+              }}
+            >
+              Você ainda não fez nenhum pedido.
+            </Text>
+          </View>
+        )}
         ListHeaderComponent={() => (
           <>
             <Header
@@ -189,7 +196,7 @@ export function Historic() {
               Textcolor={theme.colors.text_white}
             />
             <TitleView style={{ marginTop: RFValue(25) }}>
-              <Title>Histórico</Title>
+              <Title>{data.length >= 1 ? "Histórico" : ""}</Title>
             </TitleView>
           </>
         )}

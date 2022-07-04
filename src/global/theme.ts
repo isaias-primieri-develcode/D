@@ -56,6 +56,7 @@ export default {
     OrderComplete: require("../assets/images/orderComplete.png"),
     CartNotFound: require("../assets/images/cartNotFound.png"),
     Check: require("../assets/imageIcons/check.png"),
+    OrderNotFound: require("../assets/images/orderNotFound.png"),
   },
 
   images: {

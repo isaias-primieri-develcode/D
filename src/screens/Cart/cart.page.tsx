@@ -65,7 +65,7 @@ export function Cart() {
         iconColor={theme.colors.background}
         Textcolor={theme.colors.text_white}
         onPress={() => {
-          navigation.navigate("Home");
+          navigation.goBack();
         }}
       />
       {cartItems.length === 0 ? (
