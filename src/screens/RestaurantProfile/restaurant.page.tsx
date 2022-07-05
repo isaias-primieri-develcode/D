@@ -40,7 +40,14 @@ interface PlatesListProps {
   photo_url: string;
 }
 
-export function RestaurantProfile({ route }: any) {
+interface RouteProps {
+  id: number;
+  name: string;
+  food_type: string;
+  photo_url: string;
+}
+
+export function RestaurantProfile({ route }: RouteProps) {
   const { id, name, food_types, photo_url } = route.params;
   const [search, setSearch] = useState({
     name: "",
@@ -51,7 +58,6 @@ export function RestaurantProfile({ route }: any) {
   const [data, setData] = useState<PlatesListProps[]>([]);
   const { authState } = useAuth();
   const { restaurantVerify, cartQuantity } = useCart();
-  // const findItem = cartItems.find((item: any) => item.plate.id === id);
 
   function FetchPhoto() {
     try {
@@ -61,7 +67,7 @@ export function RestaurantProfile({ route }: any) {
             Authorization: `Bearer ${authState.token}`,
           },
         })
-        .then((response: any) => {
+        .then((response) => {
           setPhoto(response.data);
         });
     } catch (error) {
@@ -81,7 +87,7 @@ export function RestaurantProfile({ route }: any) {
             },
           }
         )
-        .then((response: any) => {
+        .then((response) => {
           setData(response.data);
           onSuccess && onSuccess(response.data);
         });
@@ -91,7 +97,7 @@ export function RestaurantProfile({ route }: any) {
     setLoading(false);
   }
 
-  function onSucces(response: any) {
+  function onSucces(response) {
     setData([...data, ...response]);
   }
 
@@ -118,6 +124,31 @@ export function RestaurantProfile({ route }: any) {
     FetchPhoto();
     restaurantVerify();
   }, [search.name]);
+
+  const renderItem = ({ item }: { item: PlatesListProps }) => (
+    <View
+      style={{
+        width: "90%",
+        alignItems: "center",
+        marginHorizontal: "5%",
+      }}
+    >
+      <Plate
+        swipeDelete={false}
+        restaurantName={name}
+        right
+        platePhoto={item.photo_url}
+        food_types={food_types}
+        photo_url={photo_url}
+        restaurantId={id}
+        id={item.id}
+        source={item.photo_url}
+        name={item.name}
+        description={item.description}
+        price={item.price}
+      />
+    </View>
+  );
 
   const navigation = useNavigation();
   return (
@@ -178,31 +209,8 @@ export function RestaurantProfile({ route }: any) {
           ) : null
         }
         data={data}
-        keyExtractor={(item: any) => item.id}
-        renderItem={({ item }: any) => (
-          <View
-            style={{
-              width: "90%",
-              alignItems: "center",
-              marginHorizontal: "5%",
-            }}
-          >
-            <Plate
-              swipeDelete={false}
-              restaurantName={name}
-              right
-              platePhoto={item.photo_url}
-              food_types={food_types}
-              photo_url={photo_url}
-              restaurantId={id}
-              id={item.id}
-              source={item.photo_url}
-              name={item.name}
-              description={item.description}
-              price={item.price}
-            />
-          </View>
-        )}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={renderItem}
       />
       {cartQuantity !== 0 ? <CartComponent BottomBar={false} /> : null}
     </Container>

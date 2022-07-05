@@ -96,7 +96,9 @@ export function Plate({
 
   const [swipeWidth, setSwipeWidth] = useState("90%");
 
-  const findItem = cartItems.find((item: any) => item.plate.id === id);
+  const findItem = cartItems.find(
+    (item: CartItemProps) => item.plate.id === id
+  );
 
   const RenderRight = () => {
     return (
@@ -132,7 +134,7 @@ export function Plate({
             Authorization: `Bearer ${authState.token}`,
           },
         })
-        .then((response: any) => {
+        .then((response) => {
           setPhoto(response.data);
         });
     } catch (error) {
@@ -292,8 +294,9 @@ export function Plate({
                     <ChangeCartQuantity
                       swipeable={swipeDelete}
                       quantity={
-                        cartItems.find((item: CartItemProps) => item.plate.id === id)
-                          ?.quantity
+                        cartItems.find(
+                          (item: CartItemProps) => item.plate.id === id
+                        )?.quantity
                       }
                       deleteOnPress={() => {
                         handleDeleteCart({

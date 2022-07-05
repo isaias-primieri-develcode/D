@@ -12,10 +12,10 @@ import {
 interface Props {
   placeholder: string;
   source: string;
-  onBlurProp?: (value: any) => void;
+  onBlurProp?: (value: string) => void;
   handleChangeProp?: (value: string) => void;
   valueProp?: string;
-  keyboradTypeProp?: any;
+  keyboradTypeProp?: string;
 }
 
 export function Input({

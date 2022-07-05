@@ -70,7 +70,10 @@ export function Cart() {
 
   return (
     <Container>
-      <StatusBar backgroundColor={theme.colors.background_red} />
+      <StatusBar
+        backgroundColor={theme.colors.background_red}
+        barStyle={"light-content"}
+      />
       <Header
         color={theme.colors.background_red}
         name="Compras"

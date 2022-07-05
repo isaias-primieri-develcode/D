@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
-import { StatusBar } from "react-native";
+import { FlatList, ListRenderItemInfo, StatusBar } from "react-native";
 import { useDebouncedCallback } from "use-debounce";
 import { CardRestaurant } from "../../components/cardRestaurant/cardRestaurant.component";
 import { BannerHomeImage } from "../../components/Carousel/carousel.component";
@@ -28,6 +28,10 @@ interface foodTypeProps {
   name: string;
 }
 
+interface ItemProps {
+  item: Response[];
+}
+
 interface Response {
   id: number;
   name: string;
@@ -42,7 +46,7 @@ interface RestaurantListProps {
 
 export function Home() {
   const { authState } = useAuth();
-  const [data, setData] = useState<RestaurantListProps[]>([]);
+  const [data, setData] = useState<Response[]>([]);
   const [search, setSearch] = useState({
     page: 0,
     name: "",
@@ -63,7 +67,7 @@ export function Home() {
             },
           }
         )
-        .then((response: any) => {
+        .then((response) => {
           setData(response.data);
           onSuccess && onSuccess(response.data);
         });
@@ -73,7 +77,7 @@ export function Home() {
     setLoading(false);
   }
 
-  function onSucces(response: any) {
+  function onSucces(response: RestaurantListProps) {
     setData([...data, ...response.content]);
   }
 
@@ -119,13 +123,38 @@ export function Home() {
     loadRestaurants();
   }, [search]);
 
+  const renderItem = ({ item }: { item: Response }) => (
+    <CardRestaurantView>
+      <CardRestaurant
+        name={item.name}
+        id={item.id}
+        category={
+          item.food_types.length > 0
+            ? item.food_types[0]?.name.charAt(0).toUpperCase() +
+              item.food_types[0]?.name.slice(1).toLowerCase()
+            : ""
+        }
+        rate={4.3}
+        source={item.photo_url}
+        onPress={() =>
+          handleRestaurantProps(
+            item.id,
+            item.name,
+            item.food_types.length > 0 ? item.food_types[0].name : "",
+            item.photo_url
+          )
+        }
+      />
+    </CardRestaurantView>
+  );
+
   return (
     <>
       <Container>
         <StatusBar barStyle="light-content" backgroundColor="#c20c18" />
-        <RestaurantList
+        <FlatList
           data={data}
-          keyExtractor={(item: any) => item.id}
+          keyExtractor={(item) => item.id.toString()}
           ListHeaderComponent={
             <>
               <Header source={require("../../assets/homeImages/header.png")} />
@@ -143,31 +172,8 @@ export function Home() {
             </>
           }
           numColumns={2}
-          renderItem={({ item }: any) => (
-            <CardRestaurantView>
-              <CardRestaurant
-                name={item.name}
-                id={item.id}
-                category={
-                  item.food_types.length > 0
-                    ? item.food_types[0]?.name.charAt(0).toUpperCase() +
-                      item.food_types[0]?.name.slice(1).toLowerCase()
-                    : ""
-                }
-                rate={4.3}
-                source={item.photo_url}
-                onPress={() =>
-                  handleRestaurantProps(
-                    item.id,
-                    item.name,
-                    item.food_types.length > 0 ? item.food_types[0].name : "",
-                    item.photo_url
-                  )
-                }
-              />
-            </CardRestaurantView>
-          )}
-          onEndReached={(value: any) => handleLoadOnEnd(value)}
+          renderItem={renderItem}
+          onEndReached={(value: RestaurantListProps) => handleLoadOnEnd(value)}
           ListFooterComponent={
             <ViewLoading>{loading ? <Load /> : null}</ViewLoading>
           }

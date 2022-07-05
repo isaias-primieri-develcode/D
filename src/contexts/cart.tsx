@@ -6,6 +6,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
+import { Alert } from "react-native";
 
 interface CartListProps {
   children: ReactNode;
@@ -132,6 +133,7 @@ export function CartProvider({ children }: CartListProps) {
       setCartQuantity(cartQuantity + 1);
       setTotalPrice(totalPrice + item.price);
     } else {
+      Alert.alert( "Opa!", "Você não pode adicionar itens de restaurantes diferentes");
       console.log("Não adicione pratos de restaurantes diferentes");
     }
   }
