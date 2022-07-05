@@ -1,6 +1,6 @@
 /* eslint-disable quotes */
 import React from "react";
-import { Image } from "react-native";
+import { Image, ImageSourcePropType } from "react-native";
 import {
   BackButton,
   Container,
@@ -12,7 +12,7 @@ interface Props {
   color: string;
   name: string;
   onPress?: () => void;
-  source?: any;
+  source?: ImageSourcePropType;
   Textcolor?: string;
   iconColor?: string;
 }

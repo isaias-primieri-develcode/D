@@ -30,7 +30,7 @@ interface Props {
   name: string;
   category: string;
   rate: number;
-  source: any;
+  source: string;
   onPress: () => void;
 }
 
@@ -52,7 +52,7 @@ export function CardRestaurant({
             Authorization: `Bearer ${authState.token}`,
           },
         })
-        .then((response: any) => {
+        .then((response) => {
           setData(response.data);
         });
     } catch (error) {

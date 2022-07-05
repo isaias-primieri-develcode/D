@@ -50,7 +50,7 @@ export function HistoricComponent({
             Authorization: `Bearer ${authState.token}`,
           },
         })
-        .then((response: any) => {
+        .then((response) => {
           setPhoto(response.data);
         });
     } catch (error) {

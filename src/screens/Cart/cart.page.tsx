@@ -1,8 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable quotes */
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
-import { Image, StatusBar, View } from "react-native";
+import { FlatList, Image, StatusBar, View } from "react-native";
 import { Address } from "../../components/Address/address.component";
 import { FinishCart } from "../../components/FinishCart/finishCart.component";
 import { Header } from "../../components/Headers/header.component";
@@ -44,7 +45,7 @@ interface Photo {
 
 export function Cart() {
   const navigation = useNavigation();
-  const { cartItems, restaurantId, restaurant } = useCart();
+  const { cartItems, restaurantId, restaurant, restaurantVerify } = useCart();
   const [photo, setPhoto] = useState<Photo>([]);
   const { authState } = useAuth();
 
@@ -65,6 +66,10 @@ export function Cart() {
   }
 
   useEffect(() => {
+    restaurantVerify();
+  }, []);
+
+  useEffect(() => {
     FetchPhoto();
   }, []);
 
@@ -82,6 +87,7 @@ export function Cart() {
         Textcolor={theme.colors.text_white}
         onPress={() => {
           navigation.goBack();
+          restaurantVerify();
         }}
       />
       {cartItems.length === 0 ? (
@@ -103,15 +109,16 @@ export function Cart() {
             }
           />
           <ListView>
-            <ListTitleView>
+            <ListTitleView> 
               <ListTitle>Meus Itens</ListTitle>
             </ListTitleView>
           </ListView>
-          <CartList
+          <FlatList
+            style={{ width: "90%", marginLeft: "10%", marginTop: 70 }}
             data={cartItems}
             ListFooterComponent={() => <FooterComponent />}
-            keyExtractor={(item: CartItemProps) => item.id}
-            renderItem={({ item }: CartItemProps) => (
+            keyExtractor={(item: CartItemProps) => item.plate.id.toString()}
+            renderItem={({ item }) => (
               <View
                 style={{
                   width: "100%",
