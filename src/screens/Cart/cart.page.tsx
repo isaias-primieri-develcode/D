@@ -24,6 +24,19 @@ import {
   NotFoundView,
 } from "./cart.page.style";
 
+interface PlateProps {
+  id: number;
+  price: number;
+}
+interface CartItemProps {
+  plate: PlateProps;
+  quantity: number;
+  observation: string;
+  price: number;
+  photo: string;
+  name: string;
+}
+
 interface Photo {
   id: number;
   code: string;
@@ -43,7 +56,7 @@ export function Cart() {
             Authorization: `Bearer ${authState.token}`,
           },
         })
-        .then((response: any) => {
+        .then((response) => {
           setPhoto(response.data);
         });
     } catch (error) {
@@ -94,8 +107,8 @@ export function Cart() {
           <CartList
             data={cartItems}
             ListFooterComponent={() => <FooterComponent />}
-            keyExtractor={(item: any) => item.id}
-            renderItem={({ item }: any) => (
+            keyExtractor={(item: CartItemProps) => item.id}
+            renderItem={({ item }: CartItemProps) => (
               <View
                 style={{
                   width: "100%",

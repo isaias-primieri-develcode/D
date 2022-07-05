@@ -14,6 +14,7 @@ import {
 
 interface changeCartQuantityProps extends TouchableOpacityProps {
   quantity: number;
+  swipeable?: boolean;
   deleteOnPress: () => void;
   addOnPress: () => void;
   removeOnPress: () => void;
@@ -22,14 +23,19 @@ interface changeCartQuantityProps extends TouchableOpacityProps {
 export function ChangeCartQuantity({
   quantity,
   addOnPress,
+  swipeable,
   deleteOnPress,
   removeOnPress,
 }: changeCartQuantityProps) {
   return (
     <Container>
-      {quantity == 1 ? (
+      {quantity === 1 ? (
         <TouchableOpacityView onPress={deleteOnPress}>
-          <DeleteImage source={theme.icons.Delete} />
+          {swipeable ? (
+            <DeleteImage source={theme.icons.Remove} />
+          ) : (
+            <DeleteImage source={theme.icons.Delete} />
+          )}
         </TouchableOpacityView>
       ) : (
         <TouchableOpacityView onPress={removeOnPress}>

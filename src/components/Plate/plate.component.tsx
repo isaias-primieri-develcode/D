@@ -40,17 +40,30 @@ interface Photo {
   code: string;
 }
 
+interface PlateProps {
+  id: number;
+  price: number;
+}
+interface CartItemProps {
+  plate: PlateProps;
+  quantity: number;
+  observation: string;
+  price: number;
+  photo: string;
+  name: string;
+}
+
 interface Props {
   name: string;
   description: string;
   price: number;
-  source: any;
+  source: string;
   id: number;
   restaurantId: number;
   food_types: string;
   restaurantName: string;
   photo_url: string;
-  platePhoto: any;
+  platePhoto: string;
   right: boolean;
   swipeDelete: boolean;
 }
@@ -170,12 +183,15 @@ export function Plate({
                       <Price>R$ {priceFormatted}</Price>
                     </Footer>
                     <ChangeCartView right={right ? RFValue(-25) : RFValue(0)}>
-                      {cartItems.find((item: any) => item.plate.id === id)
-                        ?.quantity > 0 ? (
+                      {cartItems.find(
+                        (item: CartItemProps) => item.plate.id === id
+                      )?.quantity > 0 ? (
                         <ChangeCartQuantity
+                          swipeable={swipeDelete}
                           quantity={
-                            cartItems.find((item: any) => item.plate.id === id)
-                              ?.quantity
+                            cartItems.find(
+                              (item: CartItemProps) => item.plate.id === id
+                            )?.quantity
                           }
                           deleteOnPress={() => {
                             handleDeleteCart({
@@ -271,11 +287,12 @@ export function Plate({
                   <Price>R$ {priceFormatted}</Price>
                 </Footer>
                 <ChangeCartView right={right ? RFValue(-25) : RFValue(0)}>
-                  {cartItems.find((item: any) => item.plate.id === id)
+                  {cartItems.find((item: CartItemProps) => item.plate.id === id)
                     ?.quantity > 0 ? (
                     <ChangeCartQuantity
+                      swipeable={swipeDelete}
                       quantity={
-                        cartItems.find((item: any) => item.plate.id === id)
+                        cartItems.find((item: CartItemProps) => item.plate.id === id)
                           ?.quantity
                       }
                       deleteOnPress={() => {

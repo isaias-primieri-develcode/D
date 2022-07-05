@@ -18,7 +18,7 @@ interface Photo {
 
 interface Props {
   name: string;
-  source: any;
+  source: string;
   onPress: () => void;
 }
 

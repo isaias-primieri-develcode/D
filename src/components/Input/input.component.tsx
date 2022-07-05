@@ -1,16 +1,17 @@
-import React, {useState} from 'react';
-import {Image, View} from 'react-native';
-import {useTheme} from 'styled-components';
+/* eslint-disable quotes */
+import React, { useState } from "react";
+import { Image } from "react-native";
+import { useTheme } from "styled-components";
 import {
   ValueInput,
   ViewInput,
   InputIcon,
   HiddenPassword,
-} from './input.component.style';
+} from "./input.component.style";
 
 interface Props {
   placeholder: string;
-  source: any;
+  source: string;
   onBlurProp?: (value: any) => void;
   handleChangeProp?: (value: string) => void;
   valueProp?: string;

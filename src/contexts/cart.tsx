@@ -21,7 +21,7 @@ interface CartItemProps {
   quantity: number;
   observation: string;
   price: number;
-  photo: any;
+  photo: string;
   name: string;
 }
 interface RestaurantProps {

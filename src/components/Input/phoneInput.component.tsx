@@ -8,9 +8,23 @@ import {
   HiddenPassword,
 } from './input.component.style';
 
+
+interface PlateProps {
+  id: number;
+  price: number;
+}
+interface CartItemProps {
+  plate: PlateProps;
+  quantity: number;
+  observation: string;
+  price: number;
+  photo: string;
+  name: string;
+}
+
 interface Props extends TextInputProps {
   placeholder: string;
-  source: any;
+  source: string;
   onBlurProp?: (value: any) => void;
   handleChangeProp?: (value: string) => void;
   valueProp?: string;

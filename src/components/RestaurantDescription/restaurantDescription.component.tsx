@@ -10,7 +10,7 @@ import {
 } from "./restaurantDescription.component.style";
 
 interface Props {
-  source: any;
+  source: string;
   name: string;
   category: string;
 }
