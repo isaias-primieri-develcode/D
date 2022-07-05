@@ -1,7 +1,7 @@
 /* eslint-disable quotes */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
-import { useNavigation } from "@react-navigation/native";
+import { RouteProp, useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, Image, StatusBar, View } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
@@ -41,10 +41,17 @@ interface PlatesListProps {
 }
 
 interface RouteProps {
-  id: number;
-  name: string;
-  food_type: string;
-  photo_url: string;
+  route: RouteProp<
+    {
+      params: {
+        id: number;
+        name: string;
+        food_types: string;
+        photo_url: string;
+      };
+    },
+    "params"
+  >;
 }
 
 export function RestaurantProfile({ route }: RouteProps) {
