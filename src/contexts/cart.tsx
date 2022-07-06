@@ -1,11 +1,5 @@
 /* eslint-disable quotes */
-import React, {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import React, { createContext, ReactNode, useContext, useState } from "react";
 import { Alert } from "react-native";
 
 interface CartListProps {
@@ -39,8 +33,8 @@ interface InitialCartList {
   setId: (id: number) => void;
   cartQuantity: number;
   setCartQuantity: (cartQuantity: number) => void;
-  restaurant: RestaurantProps;
-  setRestaurant: (Restaurant: RestaurantProps) => void;
+  restaurant: RestaurantProps | undefined;
+  setRestaurant: (restaurant: RestaurantProps) => void;
   totalPrice: number;
   setTotalPrice: (totalPrice: number) => void;
   costumerId: number;

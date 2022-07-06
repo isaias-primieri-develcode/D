@@ -23,7 +23,7 @@ export function BannerHomeImage() {
         <ImageBanner source={theme.icons.prato3} />
       </ScrollView>
       <IndicatorView>
-        <Image source={require("../../assets/homeImages/Indicators.png")} />
+        <Image source={theme.icons.Indicators} />
       </IndicatorView>
     </Container>
   );

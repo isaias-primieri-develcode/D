@@ -1,18 +1,15 @@
 /* eslint-disable quotes */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState } from "react";
+import React from "react";
 import * as yup from "yup";
 import { Formik } from "formik";
-import { Alert, Image, Text, TouchableOpacity, View } from "react-native";
+import { Alert, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { ButtonLogin } from "../../components/Button/button.component";
 import MiniLogo from "../../assets/images/miniLogo.png";
 import PizzaPng from "../../assets/images/pizza.png";
 import XburguerPng from "../../assets/images/xburguer.png";
 import KetchupPng from "../../assets/images/ketchup.png";
-import HiddenPassword from "../../assets/imageIcons/hiddenPassword.png";
-import PasswordDown from "../../assets/imageIcons/password.png";
 
 import {
   Container,
@@ -21,6 +18,11 @@ import {
   Logo,
   Xburguer,
   Content,
+  ErrorText,
+  ForgotPasswordText,
+  SignText,
+  SignText2,
+  ForgotView,
 } from "./login.styles";
 import api from "../../service/api";
 import { useAuth } from "../../contexts/auth";
@@ -34,9 +36,8 @@ export interface IUsuario {
 }
 
 export function Login() {
-  const [check, setCheck] = useState(false);
   const navigation = useNavigation();
-  const { setSigned, signed, setAuthState, setUser, setCostumerId } = useAuth();
+  const { setSigned, setAuthState, setUser } = useAuth();
 
   const theme = useTheme();
 
@@ -108,14 +109,7 @@ export function Login() {
                 keyboradTypeProp="email-address"
               />
               {errors.email && touched.email && (
-                <Text
-                  style={{
-                    fontSize: 10,
-                    color: "red",
-                  }}
-                >
-                  {errors.email}
-                </Text>
+                <ErrorText>{errors.email}</ErrorText>
               )}
 
               <Input
@@ -127,32 +121,17 @@ export function Login() {
                 valueProp={values.password}
               />
               {errors.password && touched.password && (
-                <Text
-                  style={{
-                    fontSize: 10,
-                    color: "red",
-                  }}
-                >
-                  {errors.password}
-                </Text>
+                <ErrorText>{errors.password}</ErrorText>
               )}
             </Content>
-            <View style={{ width: 295, alignItems: "flex-end" }}>
+            <ForgotView>
               <TouchableOpacity
                 activeOpacity={0.8}
                 onPress={() => navigation.navigate("ConfirmEmail")}
               >
-                <Text
-                  style={{
-                    paddingTop: 12,
-                    fontWeight: "bold",
-                    color: "#68484A",
-                  }}
-                >
-                  Esqueci minha senha
-                </Text>
+                <ForgotPasswordText>Esqueci minha senha</ForgotPasswordText>
               </TouchableOpacity>
-            </View>
+            </ForgotView>
             {values.password !== "" && values.email !== "" ? (
               <ButtonLogin
                 title="Continuar"
@@ -180,24 +159,8 @@ export function Login() {
         style={{ flexDirection: "row" }}
         onPress={() => navigation.navigate("Register1")}
       >
-        <Text
-          style={{
-            marginTop: 16,
-            fontWeight: "bold",
-            color: "#68484A",
-          }}
-        >
-          Não possui cadastro?{" "}
-        </Text>
-        <Text
-          style={{
-            marginTop: 16,
-            fontWeight: "bold",
-            color: "#cf2323",
-          }}
-        >
-          Cadastre-se aqui!
-        </Text>
+        <SignText>Não possui cadastro? </SignText>
+        <SignText2>Cadastre-se aqui!</SignText2>
       </TouchableOpacity>
     </Container>
   );

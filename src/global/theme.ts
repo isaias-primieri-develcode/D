@@ -57,6 +57,11 @@ export default {
     CartNotFound: require("../assets/images/cartNotFound.png"),
     Check: require("../assets/imageIcons/check.png"),
     OrderNotFound: require("../assets/images/orderNotFound.png"),
+    RateStar: require("../assets/imageIcons/rateStar.png"),
+    FavoriteRestaurant: require("../assets/icons/favoriteRestaurant.png"),
+    Indicators: require("../assets/homeImages/Indicators.png"),
+    Search: require("../assets/imageIcons/search.png"),
+    Header: require("../assets/homeImages/header.png"),
   },
 
   images: {

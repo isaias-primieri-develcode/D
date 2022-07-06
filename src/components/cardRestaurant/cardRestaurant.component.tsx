@@ -3,7 +3,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../contexts/auth";
-import { useCart } from "../../contexts/cart";
 import theme from "../../global/theme";
 import api from "../../service/api";
 import {
@@ -74,8 +73,10 @@ export function CardRestaurant({
       <ViewFavorite>
         <FavoriteIconButton onPress={() => setIsPressed(!isPressed)}>
           <ImageFavorite
-            source={require("../../assets/icons/favoriteRestaurant.png")}
-            style={isPressed ? { tintColor: "#c20c18" } : null}
+            source={theme.icons.FavoriteRestaurant}
+            style={
+              isPressed ? { tintColor: theme.colors.background_red } : null
+            }
           />
         </FavoriteIconButton>
       </ViewFavorite>
@@ -83,7 +84,7 @@ export function CardRestaurant({
         <TextInfo>{name}</TextInfo>
         <TextCategories>{category}</TextCategories>
         <RateContainer>
-          <ImageRate source={require("../../assets/imageIcons/rateStar.png")} />
+          <ImageRate source={theme.icons.RateStar} />
           <TextRate>{rate}</TextRate>
         </RateContainer>
       </ViewInfo>

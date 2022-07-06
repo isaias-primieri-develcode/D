@@ -1,8 +1,9 @@
-import { RFValue } from 'react-native-responsive-fontsize';
-import styled from 'styled-components/native';
+/* eslint-disable quotes */
+import { RFValue } from "react-native-responsive-fontsize";
+import styled from "styled-components/native";
 
 export const Container = styled.View`
-background-color: ${({theme}) => theme.colors.background};
+  background-color: ${({ theme }) => theme.colors.background};
   justify-content: center;
   align-items: center;
   flex: 1;
@@ -14,6 +15,34 @@ export const Content = styled.View`
 
 export const Title = styled.Text`
   font-size: 16px;
+`;
+
+export const ErrorText = styled.Text`
+  font-size: 10px;
+  color: ${({ theme }) => theme.colors.background_red};
+`;
+
+export const ForgotPasswordText = styled.Text`
+  padding-top: ${RFValue(12)}px;
+  font-weight: bold;
+  color: ${({ theme }) => theme.colors.input_focus};
+`;
+
+export const ForgotView = styled.View`
+  width: ${RFValue(295)}px;
+  align-items: flex-end;
+`;
+
+export const SignText = styled.Text`
+  margin-top: ${RFValue(16)}px;
+  font-weight: bold;
+  color: ${({ theme }) => theme.colors.input_focus};
+`;
+
+export const SignText2 = styled.Text`
+  margin-top: ${RFValue(16)}px;
+  font-weight: bold;
+  color: ${({ theme }) => theme.colors.background_red};
 `;
 
 export const Xburguer = styled.Image`

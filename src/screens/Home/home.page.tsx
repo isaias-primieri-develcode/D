@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
-import { FlatList, ListRenderItemInfo, StatusBar } from "react-native";
+import { FlatList, StatusBar } from "react-native";
 import { useDebouncedCallback } from "use-debounce";
 import { CardRestaurant } from "../../components/cardRestaurant/cardRestaurant.component";
 import { BannerHomeImage } from "../../components/Carousel/carousel.component";
@@ -10,6 +10,7 @@ import { Categories } from "../../components/categories/categories.component";
 import { SearchRestaurants } from "../../components/SearchRestaurants/searchRestaurants.component";
 import { Load } from "../../components/ViewLoading/viewLoading.component";
 import { useAuth } from "../../contexts/auth";
+import theme from "../../global/theme";
 import api from "../../service/api";
 
 import {
@@ -25,10 +26,6 @@ import {
 interface foodTypeProps {
   id: number;
   name: string;
-}
-
-interface ItemProps {
-  item: Response[];
 }
 
 interface Response {
@@ -67,7 +64,7 @@ export function Home() {
           }
         )
         .then((response) => {
-          setData(response.data);
+          setData(response.data.content);
           onSuccess && onSuccess(response.data);
         });
     } catch (error) {
@@ -156,7 +153,7 @@ export function Home() {
           keyExtractor={(item) => item.id.toString()}
           ListHeaderComponent={
             <>
-              <Header source={require("../../assets/homeImages/header.png")} />
+              <Header source={theme.icons.Header} />
               <BannerHomeImage />
               <CategoryTitleWrapper>
                 <CategoryTitle>Categorias</CategoryTitle>

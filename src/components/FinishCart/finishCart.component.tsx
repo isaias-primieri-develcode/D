@@ -65,9 +65,9 @@ export function FinishCart({ BottomBar }: Props) {
           },
         }
       )
-      .then((response) => {
+      .then(() => {
         handleDeleteAllCart();
-        setReloadHistoric(!reloadHistoric)
+        setReloadHistoric(!reloadHistoric);
         navigation.navigate("OrderComplete");
       })
       .catch((error) => {

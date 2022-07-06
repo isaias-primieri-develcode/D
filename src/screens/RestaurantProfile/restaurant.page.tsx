@@ -170,8 +170,8 @@ export function RestaurantProfile({ route }: RouteProps) {
       />
       <FavoriteIconButton onPress={() => setIsPressed(!isPressed)}>
         <Favorite
-          source={require("../../assets/icons/favoriteRestaurant.png")}
-          style={isPressed ? { tintColor: "#c20c18" } : null}
+          source={theme.icons.FavoriteRestaurant}
+          style={isPressed ? { tintColor: theme.colors.background_red } : null}
         />
       </FavoriteIconButton>
       <RestaurantDescription

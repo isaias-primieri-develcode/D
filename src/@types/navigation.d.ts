@@ -10,6 +10,7 @@ export declare global {
       OrderComplete: undefined;
       Favorites: undefined;
       Historic: undefined;
+      ConfirmEmail: undefined;
     }
   }
 }
