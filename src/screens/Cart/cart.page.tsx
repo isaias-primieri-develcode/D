@@ -15,7 +15,6 @@ import theme from "../../global/theme";
 import api from "../../service/api";
 import {
   BorderLine,
-  CartList,
   Container,
   FooterComponent,
   ListTitle,
@@ -109,7 +108,7 @@ export function Cart() {
             }
           />
           <ListView>
-            <ListTitleView> 
+            <ListTitleView>
               <ListTitle>Meus Itens</ListTitle>
             </ListTitleView>
           </ListView>

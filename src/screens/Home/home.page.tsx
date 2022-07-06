@@ -14,7 +14,6 @@ import api from "../../service/api";
 
 import {
   Container,
-  RestaurantList,
   CategoryTitleWrapper,
   CategoryTitle,
   Content,

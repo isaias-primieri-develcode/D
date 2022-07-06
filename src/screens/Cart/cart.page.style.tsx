@@ -37,12 +37,6 @@ export const ListView = styled.View`
   border-top-left-radius: 72px;
 `;
 
-export const CartList = styled.FlatList`
-  width: 90%;
-  margin-left: 10%;
-  margin-top: ${RFValue(70)}px;
-`;
-
 export const FooterComponent = styled.View`
   width: 100%;
   height: ${RFValue(80)}px;

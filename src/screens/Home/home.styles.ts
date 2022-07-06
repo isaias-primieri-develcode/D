@@ -39,13 +39,10 @@ export const Content = styled.View`
   padding-right: 5%;
 `;
 
-export const RestaurantList = styled.FlatList``;
-
 export const CardRestaurantView = styled.View`
   flex-grow: 1;
   width: 50%;
   align-items: center;
-  /* margin-left: ${RFValue(12)}px; */
 `;
 
 export const ViewLoading = styled.View`

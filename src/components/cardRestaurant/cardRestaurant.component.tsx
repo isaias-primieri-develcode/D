@@ -65,7 +65,7 @@ export function CardRestaurant({
   }, []);
 
   return (
-    <Container activeOpacity={0} onPress={onPress}>
+    <Container activeOpacity={0.8} onPress={onPress}>
       <ImageRestaurant
         source={
           data.code ? { uri: `${data.code}` } : theme.icons.DefaultRestaurant

@@ -84,15 +84,8 @@ export function CartProvider({ children }: CartListProps) {
   function restaurantVerify() {
     if (cartItems.length === 0) {
       setRestaurantVerification(false);
-      console.log(
-        "restaurantVerification: ",
-        restaurantVerification,
-        "id: ",
-        id
-      );
     } else {
       setRestaurantVerification(true);
-      console.log("restaurantVerification: ", restaurantVerification);
     }
   }
 
@@ -133,8 +126,10 @@ export function CartProvider({ children }: CartListProps) {
       setCartQuantity(cartQuantity + 1);
       setTotalPrice(totalPrice + item.price);
     } else {
-      Alert.alert( "Opa!", "Você não pode adicionar itens de restaurantes diferentes");
-      console.log("Não adicione pratos de restaurantes diferentes");
+      Alert.alert(
+        "Opa!",
+        "Você não pode adicionar itens de restaurantes diferentes"
+      );
     }
   }
 
@@ -173,10 +168,6 @@ export function CartProvider({ children }: CartListProps) {
     setRestaurantId(0);
     setRestaurantVerification(false);
   }
-
-  useEffect(() => {
-    console.log(cartItems);
-  }, [cartItems]);
 
   return (
     <cartContext.Provider

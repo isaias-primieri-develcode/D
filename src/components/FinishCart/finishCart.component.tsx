@@ -66,8 +66,6 @@ export function FinishCart({ BottomBar }: Props) {
         }
       )
       .then((response) => {
-        console.log(response.data);
-        console.log( "id costumer: " ,costumerIdData.data.id);
         handleDeleteAllCart();
         setReloadHistoric(!reloadHistoric)
         navigation.navigate("OrderComplete");

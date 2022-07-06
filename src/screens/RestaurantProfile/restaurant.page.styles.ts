@@ -47,5 +47,3 @@ export const BottomLine = styled.View`
   margin-left: 3%;
   margin-right: 3%;
 `;
-
-export const PlateList = styled.FlatList``;

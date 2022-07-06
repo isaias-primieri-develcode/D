@@ -47,7 +47,7 @@ export function Login() {
       .required("Endereço de e-mail obrigatório"),
     password: yup
       .string()
-      .min(6, ({ min }) => `A senha deve ter no minimo ${min} caracteres`)
+      .min(1, ({ min }) => `A senha deve ter no minimo ${min} caracteres`)
       .required("Senha obrigatória"),
   });
   const login = async (data: IUsuario) => {
@@ -138,7 +138,10 @@ export function Login() {
               )}
             </Content>
             <View style={{ width: 295, alignItems: "flex-end" }}>
-              <TouchableOpacity activeOpacity={0.8}>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => navigation.navigate("ConfirmEmail")}
+              >
                 <Text
                   style={{
                     paddingTop: 12,
