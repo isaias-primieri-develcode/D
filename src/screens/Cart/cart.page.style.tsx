@@ -22,7 +22,7 @@ export const ListTitle = styled.Text`
 `;
 
 export const ListTitleView = styled.View`
-  height: ${RFValue(70)}px;
+  height: ${RFValue(60)}px;
   align-items: center;
   justify-content: center;
 `;

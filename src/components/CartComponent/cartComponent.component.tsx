@@ -43,7 +43,7 @@ export function CartComponent({ BottomBar }: Props) {
         </CartIconView>
         <CartText>Ver Carrinho</CartText>
         <PriceView>
-          <PriceText>R${priceFormatted}</PriceText>
+          <PriceText>R$ {priceFormatted}</PriceText>
         </PriceView>
       </CartView>
     </Container>

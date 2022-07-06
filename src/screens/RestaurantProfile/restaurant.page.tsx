@@ -3,7 +3,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import { RouteProp, useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, Image, StatusBar, View } from "react-native";
+import { ActivityIndicator, FlatList, Image, StatusBar, View } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { useDebouncedCallback } from "use-debounce";
 import { CartComponent } from "../../components/CartComponent/cartComponent.component";
@@ -190,7 +190,7 @@ export function RestaurantProfile({ route }: RouteProps) {
         />
       </RestaurantMenu>
 
-      <PlateList
+      <FlatList
         ListFooterComponent={() => (
           <View
             style={{
