@@ -1,6 +1,6 @@
 /* eslint-disable quotes */
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
+import React, { useState } from "react";
 import { Alert } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { useAuth } from "../../contexts/auth";
@@ -22,6 +22,7 @@ interface Props {
 }
 
 export function FinishCart({ BottomBar }: Props) {
+  const [disabled, setDisabled] = useState(false);
   const {
     totalPrice,
     cartItems,
@@ -40,6 +41,7 @@ export function FinishCart({ BottomBar }: Props) {
   const priceFormatted = priceConverter();
 
   async function handlePost() {
+    setDisabled(true);
     const costumerIdData = await api.get("/auth", {
       headers: {
         Authorization: `Bearer ${authState.token}`,
@@ -68,6 +70,7 @@ export function FinishCart({ BottomBar }: Props) {
       .then(() => {
         handleDeleteAllCart();
         setReloadHistoric(!reloadHistoric);
+        setDisabled(false);
         navigation.navigate("OrderComplete");
       })
       .catch((error) => {
@@ -78,7 +81,7 @@ export function FinishCart({ BottomBar }: Props) {
 
   return (
     <Container bottom={BottomBar ? RFValue(45) : RFValue(0)}>
-      <CartView onPress={() => handlePost()}>
+      <CartView disabled={disabled} onPress={() => handlePost()}>
         <CartIconView>
           <CartIcon source={theme.icons.Money} />
         </CartIconView>
