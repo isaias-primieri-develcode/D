@@ -1,21 +1,27 @@
 /* eslint-disable quotes */
 import React, { useState } from "react";
-import { Image } from "react-native";
+import {
+  Image,
+  ImageSourcePropType,
+  KeyboardTypeOptions,
+  NativeSyntheticEvent,
+  TextInputFocusEventData,
+} from "react-native";
 import { useTheme } from "styled-components";
 import {
   ValueInput,
   ViewInput,
   InputIcon,
   HiddenPassword,
-} from "./input.component.style";
+} from "./input.component.styles";
 
 interface Props {
   placeholder: string;
-  source: string;
-  onBlurProp?: (value: string) => void;
+  source: ImageSourcePropType;
+  onBlurProp?: (value: NativeSyntheticEvent<TextInputFocusEventData>) => void;
   handleChangeProp?: (value: string) => void;
   valueProp?: string;
-  keyboradTypeProp?: string;
+  keyboradTypeProp?: KeyboardTypeOptions;
 }
 
 export function Input({

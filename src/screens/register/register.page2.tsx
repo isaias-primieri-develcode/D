@@ -1,26 +1,23 @@
+/* eslint-disable quotes */
 /* eslint-disable react-native/no-inline-styles */
-/* eslint-disable no-console */
-import React from 'react';
-import {Image, Text} from 'react-native';
-import * as Yup from 'yup';
-import {Formik} from 'formik';
-import {useNavigation} from '@react-navigation/native';
-import {ButtonLogin} from '../../components/Button/button.component';
-import Phone from '../../assets/imageIcons/phone.png';
-import CPF from '../../assets/imageIcons/cpf.png';
-import Name from '../../assets/imageIcons/name.png';
-import BackPng from '../../assets/imageIcons/back.png';
+import React from "react";
+import { Image, Text } from "react-native";
+import * as Yup from "yup";
+import { Formik } from "formik";
+import { useNavigation } from "@react-navigation/native";
+import { ButtonLogin } from "../../components/Button/button.component";
+import BackPng from "../../assets/imageIcons/back.png";
 
-import Register2png from '../../assets/resgister/register2.png';
+import Register2png from "../../assets/resgister/register2.png";
 
-import {Container, Content} from './register.styles';
-import {cpf, phoneNumber} from '../../utils/validations';
-import {AuthProvider} from '../../contexts/auth';
-import {useRegister} from '../../contexts/Register';
-import {Header} from '../../components/Headers/header.component';
-import {Input} from '../../components/Input/input.component';
-import {useTheme} from 'styled-components';
-import {PhoneInput} from '../../components/Input/phoneInput.component';
+import { Container, Content } from "./register.styles";
+import { cpf, phoneNumber } from "../../utils/validations";
+import { AuthProvider } from "../../contexts/auth";
+import { useRegister } from "../../contexts/Register";
+import { Header } from "../../components/Headers/header.component";
+import { Input } from "../../components/Input/input.component";
+import { useTheme } from "styled-components";
+import { PhoneInput } from "../../components/Input/phoneInput.component";
 
 export function Register2() {
   const navigation = useNavigation();
@@ -28,16 +25,16 @@ export function Register2() {
   const loginValidationSchema = Yup.object()
     .shape({
       name: Yup.string().required(),
-      cpf: Yup.string().required().matches(cpf, 'CPF inválido').length(11),
+      cpf: Yup.string().required().matches(cpf, "CPF inválido").length(11),
       phone: Yup.string()
         .required()
-        .matches(phoneNumber, 'Telefone inválido')
+        .matches(phoneNumber, "Telefone inválido")
         .length(11),
     })
     .required();
-  const {body} = useRegister();
+  const { body } = useRegister();
   function handleBack() {
-    navigation.navigate('Register1');
+    navigation.navigate("Register1");
   }
 
   return (
@@ -53,12 +50,13 @@ export function Register2() {
         <Image source={Register2png} />
         <Formik
           validationSchema={loginValidationSchema}
-          initialValues={{name: '', cpf: '', phone: ''}}
-          onSubmit={values => {
+          initialValues={{ name: "", cpf: "", phone: "" }}
+          onSubmit={(values) => {
             body.costumer.firstName = values.name;
             body.costumer.cpf = values.cpf;
             body.costumer.phone = values.phone;
-          }}>
+          }}
+        >
           {({
             handleChange,
             handleBlur,
@@ -72,8 +70,8 @@ export function Register2() {
               <Content>
                 <Input
                   placeholder="Nome"
-                  handleChangeProp={handleChange('name')}
-                  onBlurProp={handleBlur('name')}
+                  handleChangeProp={handleChange("name")}
+                  onBlurProp={handleBlur("name")}
                   valueProp={values.name}
                   keyboradTypeProp="email-address"
                   source={theme.icons.nameIcon}
@@ -82,8 +80,9 @@ export function Register2() {
                   <Text
                     style={{
                       fontSize: 10,
-                      color: 'red',
-                    }}>
+                      color: "red",
+                    }}
+                  >
                     {errors.name}
                   </Text>
                 )}
@@ -94,8 +93,8 @@ export function Register2() {
                 />
                 <PhoneInput
                   placeholder="CPF"
-                  handleChangeProp={handleChange('cpf')}
-                  onBlurProp={handleBlur('cpf')}
+                  handleChangeProp={handleChange("cpf")}
+                  onBlurProp={handleBlur("cpf")}
                   valueProp={values.cpf}
                   keyboradTypeProp="numeric"
                   source={theme.icons.cpfIcon}
@@ -104,15 +103,16 @@ export function Register2() {
                   <Text
                     style={{
                       fontSize: 10,
-                      color: 'red',
-                    }}>
+                      color: "red",
+                    }}
+                  >
                     {errors.cpf}
                   </Text>
                 )}
                 <PhoneInput
                   placeholder="Telefone"
-                  handleChangeProp={handleChange('phone')}
-                  onBlurProp={handleBlur('phone')}
+                  handleChangeProp={handleChange("phone")}
+                  onBlurProp={handleBlur("phone")}
                   valueProp={values.phone}
                   keyboradTypeProp="numeric"
                   source={theme.icons.phoneIcon}
@@ -121,27 +121,28 @@ export function Register2() {
                   <Text
                     style={{
                       fontSize: 10,
-                      color: 'red',
-                    }}>
+                      color: "red",
+                    }}
+                  >
                     {errors.phone}
                   </Text>
                 )}
               </Content>
 
-              {values.name !== '' && values.phone !== '' ? (
+              {values.name !== "" && values.phone !== "" ? (
                 <ButtonLogin
                   title="Continuar"
                   activeOpacity={0.8}
                   disabled={!isValid}
                   onPress={() => {
-                    navigation.navigate('Register3');
+                    navigation.navigate("Register3");
                     handleSubmit();
                   }}
                 />
               ) : (
                 <>
                   <ButtonLogin title="Continuar" activeOpacity={0.8} disabled />
-                  <Text style={{color: 'red', marginTop: 16}}>
+                  <Text style={{ color: "red", marginTop: 16 }}>
                     Preencha todos os campos
                   </Text>
                 </>

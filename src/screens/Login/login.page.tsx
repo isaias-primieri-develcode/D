@@ -125,10 +125,7 @@ export function Login() {
               )}
             </Content>
             <ForgotView>
-              <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={() => navigation.navigate("ConfirmEmail")}
-              >
+              <TouchableOpacity activeOpacity={0.8}>
                 <ForgotPasswordText>Esqueci minha senha</ForgotPasswordText>
               </TouchableOpacity>
             </ForgotView>

@@ -54,18 +54,18 @@ interface CartItemProps {
 }
 
 interface Props {
-  name?: string;
-  description?: string;
-  price?: number;
-  source?: string;
-  id?: number;
-  restaurantId?: number;
-  food_types?: string;
-  restaurantName?: string;
-  photo_url?: string;
-  platePhoto?: string;
-  right?: boolean;
-  swipeDelete?: boolean;
+  name: string;
+  description: string;
+  price: number;
+  source: string;
+  id: number;
+  restaurantId: number;
+  food_types: string;
+  restaurantName: string;
+  photo_url: string;
+  platePhoto: string;
+  right: boolean;
+  swipeDelete: boolean;
 }
 
 export function Plate({

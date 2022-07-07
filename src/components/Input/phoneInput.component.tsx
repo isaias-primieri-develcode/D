@@ -1,34 +1,21 @@
-import React, {useState} from 'react';
-import {Image, TextInputProps, View} from 'react-native';
-import {useTheme} from 'styled-components';
+/* eslint-disable quotes */
+import React from "react";
 import {
-  ValueInput,
-  ViewInput,
-  InputIcon,
-  HiddenPassword,
-} from './input.component.style';
-
-
-interface PlateProps {
-  id: number;
-  price: number;
-}
-interface CartItemProps {
-  plate: PlateProps;
-  quantity: number;
-  observation: string;
-  price: number;
-  photo: string;
-  name: string;
-}
+  ImageSourcePropType,
+  KeyboardTypeOptions,
+  NativeSyntheticEvent,
+  TextInputFocusEventData,
+  TextInputProps,
+} from "react-native";
+import { ValueInput, ViewInput, InputIcon } from "./input.component.styles";
 
 interface Props extends TextInputProps {
   placeholder: string;
-  source: string;
-  onBlurProp?: (value: string) => void;
+  source: ImageSourcePropType;
+  onBlurProp?: (value: NativeSyntheticEvent<TextInputFocusEventData>) => void;
   handleChangeProp?: (value: string) => void;
   valueProp?: string;
-  keyboradTypeProp?: string;
+  keyboradTypeProp?: KeyboardTypeOptions; // string | KeyboardTypeOptions;
 }
 
 export function PhoneInput({
@@ -43,9 +30,9 @@ export function PhoneInput({
     <ViewInput>
       <InputIcon source={source} />
       <ValueInput
-        type="cel-phone"
-        options={{maskType: 'BRL', withDDD: true, dddMask: '(99) '}}
         placeholder={placeholder}
+        type="cel-phone"
+        options={{ maskType: "BRL", withDDD: true, dddMask: "(99) " }}
         onChangeText={handleChangeProp}
         value={valueProp}
         onBlur={onBlurProp}
